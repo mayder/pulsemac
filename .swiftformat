@@ -1,0 +1,6 @@
+--swiftversion 5.9
+--indent 2
+--linebreaks lf
+--stripunusedargs closure-only
+--disable trailingCommas
+--exclude Tools,PulseMac.xcodeproj

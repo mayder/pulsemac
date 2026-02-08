@@ -1,0 +1,1019 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 55;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		A70000000000000000000001 /* Sources/App/main.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60000000000000000000001 /* Sources/App/main.swift */; };
+		A70000000000000000000002 /* Sources/App/AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60000000000000000000002 /* Sources/App/AppDelegate.swift */; };
+		A70000000000000000000003 /* Sources/App/MenuBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60000000000000000000003 /* Sources/App/MenuBarController.swift */; };
+		A70000000000000000000004 /* Sources/App/SettingsWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60000000000000000000004 /* Sources/App/SettingsWindowController.swift */; };
+		A70000000000000000000005 /* Sources/App/AppContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60000000000000000000005 /* Sources/App/AppContainer.swift */; };
+		A70000000000000000000006 /* Sources/Presentation/MenuBarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60000000000000000000006 /* Sources/Presentation/MenuBarViewModel.swift */; };
+		A70000000000000000000007 /* Sources/Presentation/SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60000000000000000000007 /* Sources/Presentation/SettingsViewModel.swift */; };
+		A70000000000000000000008 /* Sources/Presentation/AlertsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60000000000000000000008 /* Sources/Presentation/AlertsViewModel.swift */; };
+		A70000000000000000000009 /* Sources/Presentation/Views/MenuBarPopoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60000000000000000000009 /* Sources/Presentation/Views/MenuBarPopoverView.swift */; };
+		A7000000000000000000000A /* Sources/Presentation/Views/SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6000000000000000000000A /* Sources/Presentation/Views/SettingsView.swift */; };
+		A7000000000000000000000B /* Sources/App/Resources/Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A60000000000000000000025 /* Sources/App/Resources/Assets.xcassets */; };
+		A7000000000000000000000C /* PulseMacDomain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6000000000000000000002B /* PulseMacDomain.framework */; };
+		A7000000000000000000000D /* PulseMacData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6000000000000000000002C /* PulseMacData.framework */; };
+		A7000000000000000000000E /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6000000000000000000002F /* AppKit.framework */; };
+		A7000000000000000000000F /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A60000000000000000000030 /* SwiftUI.framework */; };
+		A70000000000000000000010 /* Combine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A60000000000000000000031 /* Combine.framework */; };
+		A70000000000000000000011 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A60000000000000000000032 /* UserNotifications.framework */; };
+		A70000000000000000000012 /* PulseMacDomain.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = A6000000000000000000002B /* PulseMacDomain.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A70000000000000000000013 /* PulseMacData.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = A6000000000000000000002C /* PulseMacData.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A70000000000000000000015 /* Sources/Domain/Models/MetricSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6000000000000000000000B /* Sources/Domain/Models/MetricSnapshot.swift */; };
+		A70000000000000000000016 /* Sources/Domain/Models/CPUMetrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6000000000000000000000C /* Sources/Domain/Models/CPUMetrics.swift */; };
+		A70000000000000000000017 /* Sources/Domain/Models/MemoryMetrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6000000000000000000000D /* Sources/Domain/Models/MemoryMetrics.swift */; };
+		A70000000000000000000018 /* Sources/Domain/Models/SamplingInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6000000000000000000000E /* Sources/Domain/Models/SamplingInterval.swift */; };
+		A70000000000000000000019 /* Sources/Domain/Protocols/MetricProviders.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6000000000000000000000F /* Sources/Domain/Protocols/MetricProviders.swift */; };
+		A7000000000000000000001A /* Sources/Domain/Protocols/AlertStores.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60000000000000000000010 /* Sources/Domain/Protocols/AlertStores.swift */; };
+		A7000000000000000000001B /* Sources/Domain/Protocols/NotificationClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60000000000000000000011 /* Sources/Domain/Protocols/NotificationClient.swift */; };
+		A7000000000000000000001C /* Sources/Domain/Protocols/Clock.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60000000000000000000012 /* Sources/Domain/Protocols/Clock.swift */; };
+		A7000000000000000000001D /* Sources/Domain/Alerts/AlertSeverity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60000000000000000000013 /* Sources/Domain/Alerts/AlertSeverity.swift */; };
+		A7000000000000000000001E /* Sources/Domain/Alerts/AlertRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60000000000000000000014 /* Sources/Domain/Alerts/AlertRule.swift */; };
+		A7000000000000000000001F /* Sources/Domain/Alerts/AlertEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60000000000000000000015 /* Sources/Domain/Alerts/AlertEvent.swift */; };
+		A70000000000000000000020 /* Sources/Domain/Alerts/AlertRuleState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60000000000000000000016 /* Sources/Domain/Alerts/AlertRuleState.swift */; };
+		A70000000000000000000021 /* Sources/Domain/Alerts/AlertRuleEvaluator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60000000000000000000017 /* Sources/Domain/Alerts/AlertRuleEvaluator.swift */; };
+		A70000000000000000000022 /* Sources/Domain/Alerts/AlertEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60000000000000000000018 /* Sources/Domain/Alerts/AlertEngine.swift */; };
+		A70000000000000000000023 /* Sources/Data/Stores/AppGroupMetricsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60000000000000000000019 /* Sources/Data/Stores/AppGroupMetricsStore.swift */; };
+		A70000000000000000000024 /* Sources/Data/Stores/AlertRuleDefaultsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6000000000000000000001A /* Sources/Data/Stores/AlertRuleDefaultsStore.swift */; };
+		A70000000000000000000025 /* Sources/Data/Stores/SettingsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6000000000000000000001B /* Sources/Data/Stores/SettingsStore.swift */; };
+		A70000000000000000000026 /* Sources/Data/Sampler/MetricsSampler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6000000000000000000001C /* Sources/Data/Sampler/MetricsSampler.swift */; };
+		A70000000000000000000027 /* Sources/Data/Notifications/UserNotificationClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6000000000000000000001D /* Sources/Data/Notifications/UserNotificationClient.swift */; };
+		A70000000000000000000028 /* Sources/SystemMetrics/CPUMetricsCollector.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6000000000000000000001E /* Sources/SystemMetrics/CPUMetricsCollector.swift */; };
+		A70000000000000000000029 /* Sources/SystemMetrics/MemoryMetricsCollector.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6000000000000000000001F /* Sources/SystemMetrics/MemoryMetricsCollector.swift */; };
+		A7000000000000000000002A /* Sources/Storage/SQLiteAlertHistoryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60000000000000000000020 /* Sources/Storage/SQLiteAlertHistoryStore.swift */; };
+		A7000000000000000000002B /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A60000000000000000000032 /* UserNotifications.framework */; };
+		A7000000000000000000002C /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = A60000000000000000000034 /* libsqlite3.tbd */; };
+		A7000000000000000000002D /* Sources/Widgets/PulseMacWidgets.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60000000000000000000021 /* Sources/Widgets/PulseMacWidgets.swift */; };
+		A7000000000000000000002E /* PulseMacDomain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6000000000000000000002B /* PulseMacDomain.framework */; };
+		A7000000000000000000002F /* PulseMacData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6000000000000000000002C /* PulseMacData.framework */; };
+		A70000000000000000000030 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A60000000000000000000033 /* WidgetKit.framework */; };
+		A70000000000000000000031 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A60000000000000000000030 /* SwiftUI.framework */; };
+		A70000000000000000000032 /* Combine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A60000000000000000000031 /* Combine.framework */; };
+		A70000000000000000000033 /* Tests/PulseMacTests/AlertRuleEvaluatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60000000000000000000022 /* Tests/PulseMacTests/AlertRuleEvaluatorTests.swift */; };
+		A70000000000000000000034 /* Tests/PulseMacTests/NotificationClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60000000000000000000023 /* Tests/PulseMacTests/NotificationClientTests.swift */; };
+		A70000000000000000000035 /* Tests/PulseMacTests/AlertHistoryStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60000000000000000000024 /* Tests/PulseMacTests/AlertHistoryStoreTests.swift */; };
+		A70000000000000000000036 /* PulseMacDomain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6000000000000000000002B /* PulseMacDomain.framework */; };
+		A70000000000000000000037 /* PulseMacData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6000000000000000000002C /* PulseMacData.framework */; };
+		A70000000000000000000038 /* Combine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A60000000000000000000031 /* Combine.framework */; };
+		A70000000000000000000039 /* Sources/Domain/Models/DiskMetrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60000000000000000000037 /* Sources/Domain/Models/DiskMetrics.swift */; };
+		A7000000000000000000003A /* Sources/Domain/Models/NetworkMetrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60000000000000000000038 /* Sources/Domain/Models/NetworkMetrics.swift */; };
+		A7000000000000000000003B /* Sources/Domain/Models/BatteryMetrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60000000000000000000039 /* Sources/Domain/Models/BatteryMetrics.swift */; };
+		A7000000000000000000003C /* Sources/Data/Notifications/NotificationGate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6000000000000000000003D /* Sources/Data/Notifications/NotificationGate.swift */; };
+		A7000000000000000000003D /* Sources/SystemMetrics/DiskMetricsCollector.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6000000000000000000003A /* Sources/SystemMetrics/DiskMetricsCollector.swift */; };
+		A7000000000000000000003E /* Sources/SystemMetrics/NetworkMetricsCollector.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6000000000000000000003B /* Sources/SystemMetrics/NetworkMetricsCollector.swift */; };
+		A7000000000000000000003F /* Sources/SystemMetrics/BatteryMetricsCollector.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6000000000000000000003C /* Sources/SystemMetrics/BatteryMetricsCollector.swift */; };
+		A70000000000000000000040 /* Sources/Presentation/MetricsDashboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6000000000000000000003E /* Sources/Presentation/MetricsDashboardViewModel.swift */; };
+		A70000000000000000000041 /* Sources/Presentation/Views/MetricsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6000000000000000000003F /* Sources/Presentation/Views/MetricsView.swift */; };
+		A70000000000000000000042 /* Sources/Presentation/Views/AlertsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60000000000000000000040 /* Sources/Presentation/Views/AlertsView.swift */; };
+		A70000000000000000000043 /* Sources/Presentation/Views/PreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60000000000000000000041 /* Sources/Presentation/Views/PreferencesView.swift */; };
+		A70000000000000000000044 /* Sources/Domain/Models/ProcessSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60000000000000000000042 /* Sources/Domain/Models/ProcessSnapshot.swift */; };
+		A70000000000000000000045 /* Sources/Domain/Models/TopProcessesSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60000000000000000000043 /* Sources/Domain/Models/TopProcessesSnapshot.swift */; };
+		A70000000000000000000046 /* Sources/SystemMetrics/TopProcessesCollector.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60000000000000000000044 /* Sources/SystemMetrics/TopProcessesCollector.swift */; };
+		A70000000000000000000047 /* Sources/Domain/Models/ThermalMetrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60000000000000000000045 /* Sources/Domain/Models/ThermalMetrics.swift */; };
+		A70000000000000000000092 /* Sources/Domain/MetricsCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60000000000000000000092 /* Sources/Domain/MetricsCategory.swift */; };
+		A70000000000000000000090 /* Sources/Domain/Models/ThermalFallbackSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60000000000000000000090 /* Sources/Domain/Models/ThermalFallbackSample.swift */; };
+		A70000000000000000000048 /* Sources/SystemMetrics/ThermalMetricsCollector.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60000000000000000000046 /* Sources/SystemMetrics/ThermalMetricsCollector.swift */; };
+		A70000000000000000000091 /* Sources/SystemMetrics/PowermetricsFallbackProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60000000000000000000091 /* Sources/SystemMetrics/PowermetricsFallbackProvider.swift */; };
+		A70000000000000000000049 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A60000000000000000000047 /* IOKit.framework */; };
+		A7000000000000000000004A /* Sources/Presentation/SettingsNavigationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60000000000000000000048 /* Sources/Presentation/SettingsNavigationModel.swift */; };
+		A7000000000000000000004B /* Sources/Data/Stores/AlertMuteStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6000000000000000000004B /* Sources/Data/Stores/AlertMuteStore.swift */; };
+		A7000000000000000000004C /* Sources/Data/Diagnostics/DiagnosticsExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6000000000000000000004C /* Sources/Data/Diagnostics/DiagnosticsExporter.swift */; };
+		A7000000000000000000004D /* Sources/Presentation/Views/Components/BrandComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6000000000000000000004D /* Sources/Presentation/Views/Components/BrandComponents.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		A90000000000000000000001 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A10000000000000000000001 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A20000000000000000000002;
+			remoteInfo = PulseMacDomain;
+		};
+		A90000000000000000000002 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A10000000000000000000001 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A20000000000000000000003;
+			remoteInfo = PulseMacData;
+		};
+		A90000000000000000000004 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A10000000000000000000001 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A20000000000000000000002;
+			remoteInfo = PulseMacDomain;
+		};
+		A90000000000000000000005 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A10000000000000000000001 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A20000000000000000000002;
+			remoteInfo = PulseMacDomain;
+		};
+		A90000000000000000000006 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A10000000000000000000001 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A20000000000000000000003;
+			remoteInfo = PulseMacData;
+		};
+		A90000000000000000000007 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A10000000000000000000001 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A20000000000000000000001;
+			remoteInfo = PulseMac;
+		};
+		A90000000000000000000008 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A10000000000000000000001 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A20000000000000000000002;
+			remoteInfo = PulseMacDomain;
+		};
+		A90000000000000000000009 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A10000000000000000000001 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A20000000000000000000003;
+			remoteInfo = PulseMacData;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		A30000000000000000000004 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				A70000000000000000000012 /* PulseMacDomain.framework in CopyFiles */,
+				A70000000000000000000013 /* PulseMacData.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		A60000000000000000000001 /* Sources/App/main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/App/main.swift; sourceTree = "<group>"; };
+		A60000000000000000000002 /* Sources/App/AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/App/AppDelegate.swift; sourceTree = "<group>"; };
+		A60000000000000000000003 /* Sources/App/MenuBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/App/MenuBarController.swift; sourceTree = "<group>"; };
+		A60000000000000000000004 /* Sources/App/SettingsWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/App/SettingsWindowController.swift; sourceTree = "<group>"; };
+		A60000000000000000000005 /* Sources/App/AppContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/App/AppContainer.swift; sourceTree = "<group>"; };
+		A60000000000000000000006 /* Sources/Presentation/MenuBarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/Presentation/MenuBarViewModel.swift; sourceTree = "<group>"; };
+		A60000000000000000000007 /* Sources/Presentation/SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/Presentation/SettingsViewModel.swift; sourceTree = "<group>"; };
+		A60000000000000000000008 /* Sources/Presentation/AlertsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/Presentation/AlertsViewModel.swift; sourceTree = "<group>"; };
+		A60000000000000000000009 /* Sources/Presentation/Views/MenuBarPopoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/Presentation/Views/MenuBarPopoverView.swift; sourceTree = "<group>"; };
+		A6000000000000000000000A /* Sources/Presentation/Views/SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/Presentation/Views/SettingsView.swift; sourceTree = "<group>"; };
+		A6000000000000000000000B /* Sources/Domain/Models/MetricSnapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/Domain/Models/MetricSnapshot.swift; sourceTree = "<group>"; };
+		A6000000000000000000000C /* Sources/Domain/Models/CPUMetrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/Domain/Models/CPUMetrics.swift; sourceTree = "<group>"; };
+		A6000000000000000000000D /* Sources/Domain/Models/MemoryMetrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/Domain/Models/MemoryMetrics.swift; sourceTree = "<group>"; };
+		A6000000000000000000000E /* Sources/Domain/Models/SamplingInterval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/Domain/Models/SamplingInterval.swift; sourceTree = "<group>"; };
+		A6000000000000000000000F /* Sources/Domain/Protocols/MetricProviders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/Domain/Protocols/MetricProviders.swift; sourceTree = "<group>"; };
+		A60000000000000000000010 /* Sources/Domain/Protocols/AlertStores.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/Domain/Protocols/AlertStores.swift; sourceTree = "<group>"; };
+		A60000000000000000000011 /* Sources/Domain/Protocols/NotificationClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/Domain/Protocols/NotificationClient.swift; sourceTree = "<group>"; };
+		A60000000000000000000012 /* Sources/Domain/Protocols/Clock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/Domain/Protocols/Clock.swift; sourceTree = "<group>"; };
+		A60000000000000000000013 /* Sources/Domain/Alerts/AlertSeverity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/Domain/Alerts/AlertSeverity.swift; sourceTree = "<group>"; };
+		A60000000000000000000014 /* Sources/Domain/Alerts/AlertRule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/Domain/Alerts/AlertRule.swift; sourceTree = "<group>"; };
+		A60000000000000000000015 /* Sources/Domain/Alerts/AlertEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/Domain/Alerts/AlertEvent.swift; sourceTree = "<group>"; };
+		A60000000000000000000016 /* Sources/Domain/Alerts/AlertRuleState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/Domain/Alerts/AlertRuleState.swift; sourceTree = "<group>"; };
+		A60000000000000000000017 /* Sources/Domain/Alerts/AlertRuleEvaluator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/Domain/Alerts/AlertRuleEvaluator.swift; sourceTree = "<group>"; };
+		A60000000000000000000018 /* Sources/Domain/Alerts/AlertEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/Domain/Alerts/AlertEngine.swift; sourceTree = "<group>"; };
+		A60000000000000000000092 /* Sources/Domain/MetricsCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/Domain/MetricsCategory.swift; sourceTree = "<group>"; };
+		A60000000000000000000019 /* Sources/Data/Stores/AppGroupMetricsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/Data/Stores/AppGroupMetricsStore.swift; sourceTree = "<group>"; };
+		A6000000000000000000001A /* Sources/Data/Stores/AlertRuleDefaultsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/Data/Stores/AlertRuleDefaultsStore.swift; sourceTree = "<group>"; };
+		A6000000000000000000001B /* Sources/Data/Stores/SettingsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/Data/Stores/SettingsStore.swift; sourceTree = "<group>"; };
+		A6000000000000000000001C /* Sources/Data/Sampler/MetricsSampler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/Data/Sampler/MetricsSampler.swift; sourceTree = "<group>"; };
+		A6000000000000000000001D /* Sources/Data/Notifications/UserNotificationClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/Data/Notifications/UserNotificationClient.swift; sourceTree = "<group>"; };
+		A6000000000000000000001E /* Sources/SystemMetrics/CPUMetricsCollector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/SystemMetrics/CPUMetricsCollector.swift; sourceTree = "<group>"; };
+		A6000000000000000000001F /* Sources/SystemMetrics/MemoryMetricsCollector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/SystemMetrics/MemoryMetricsCollector.swift; sourceTree = "<group>"; };
+		A60000000000000000000020 /* Sources/Storage/SQLiteAlertHistoryStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/Storage/SQLiteAlertHistoryStore.swift; sourceTree = "<group>"; };
+		A60000000000000000000021 /* Sources/Widgets/PulseMacWidgets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/Widgets/PulseMacWidgets.swift; sourceTree = "<group>"; };
+		A60000000000000000000022 /* Tests/PulseMacTests/AlertRuleEvaluatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests/PulseMacTests/AlertRuleEvaluatorTests.swift; sourceTree = "<group>"; };
+		A60000000000000000000023 /* Tests/PulseMacTests/NotificationClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests/PulseMacTests/NotificationClientTests.swift; sourceTree = "<group>"; };
+		A60000000000000000000024 /* Tests/PulseMacTests/AlertHistoryStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests/PulseMacTests/AlertHistoryStoreTests.swift; sourceTree = "<group>"; };
+		A60000000000000000000025 /* Sources/App/Resources/Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Sources/App/Resources/Assets.xcassets; sourceTree = "<group>"; };
+		A60000000000000000000026 /* Sources/App/Resources/Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Sources/App/Resources/Info.plist; sourceTree = "<group>"; };
+		A60000000000000000000027 /* Sources/App/PulseMac.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Sources/App/PulseMac.entitlements; sourceTree = "<group>"; };
+		A60000000000000000000028 /* Sources/Widgets/Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Sources/Widgets/Info.plist; sourceTree = "<group>"; };
+		A60000000000000000000029 /* Sources/Widgets/PulseMacWidgets.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Sources/Widgets/PulseMacWidgets.entitlements; sourceTree = "<group>"; };
+		A6000000000000000000002A /* PulseMac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; path = PulseMac.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A6000000000000000000002B /* PulseMacDomain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PulseMacDomain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A6000000000000000000002C /* PulseMacData.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PulseMacData.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A6000000000000000000002D /* PulseMacWidgets.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; path = PulseMacWidgets.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		A6000000000000000000002E /* PulseMacTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; path = PulseMacTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A6000000000000000000002F /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		A60000000000000000000030 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		A60000000000000000000031 /* Combine.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Combine.framework; path = System/Library/Frameworks/Combine.framework; sourceTree = SDKROOT; };
+		A60000000000000000000032 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
+		A60000000000000000000033 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		A60000000000000000000034 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		A60000000000000000000035 /* Sources/Domain/Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Sources/Domain/Info.plist; sourceTree = "<group>"; };
+		A60000000000000000000036 /* Sources/Data/Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Sources/Data/Info.plist; sourceTree = "<group>"; };
+		A60000000000000000000037 /* Sources/Domain/Models/DiskMetrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/Domain/Models/DiskMetrics.swift; sourceTree = "<group>"; };
+		A60000000000000000000038 /* Sources/Domain/Models/NetworkMetrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/Domain/Models/NetworkMetrics.swift; sourceTree = "<group>"; };
+		A60000000000000000000039 /* Sources/Domain/Models/BatteryMetrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/Domain/Models/BatteryMetrics.swift; sourceTree = "<group>"; };
+		A6000000000000000000003A /* Sources/SystemMetrics/DiskMetricsCollector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/SystemMetrics/DiskMetricsCollector.swift; sourceTree = "<group>"; };
+		A6000000000000000000003B /* Sources/SystemMetrics/NetworkMetricsCollector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/SystemMetrics/NetworkMetricsCollector.swift; sourceTree = "<group>"; };
+		A6000000000000000000003C /* Sources/SystemMetrics/BatteryMetricsCollector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/SystemMetrics/BatteryMetricsCollector.swift; sourceTree = "<group>"; };
+		A6000000000000000000003D /* Sources/Data/Notifications/NotificationGate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/Data/Notifications/NotificationGate.swift; sourceTree = "<group>"; };
+		A6000000000000000000003E /* Sources/Presentation/MetricsDashboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/Presentation/MetricsDashboardViewModel.swift; sourceTree = "<group>"; };
+		A6000000000000000000003F /* Sources/Presentation/Views/MetricsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/Presentation/Views/MetricsView.swift; sourceTree = "<group>"; };
+		A60000000000000000000040 /* Sources/Presentation/Views/AlertsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/Presentation/Views/AlertsView.swift; sourceTree = "<group>"; };
+		A60000000000000000000041 /* Sources/Presentation/Views/PreferencesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/Presentation/Views/PreferencesView.swift; sourceTree = "<group>"; };
+		A60000000000000000000042 /* Sources/Domain/Models/ProcessSnapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/Domain/Models/ProcessSnapshot.swift; sourceTree = "<group>"; };
+		A60000000000000000000043 /* Sources/Domain/Models/TopProcessesSnapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/Domain/Models/TopProcessesSnapshot.swift; sourceTree = "<group>"; };
+		A60000000000000000000044 /* Sources/SystemMetrics/TopProcessesCollector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/SystemMetrics/TopProcessesCollector.swift; sourceTree = "<group>"; };
+		A60000000000000000000045 /* Sources/Domain/Models/ThermalMetrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/Domain/Models/ThermalMetrics.swift; sourceTree = "<group>"; };
+		A60000000000000000000090 /* Sources/Domain/Models/ThermalFallbackSample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/Domain/Models/ThermalFallbackSample.swift; sourceTree = "<group>"; };
+		A60000000000000000000046 /* Sources/SystemMetrics/ThermalMetricsCollector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/SystemMetrics/ThermalMetricsCollector.swift; sourceTree = "<group>"; };
+		A60000000000000000000091 /* Sources/SystemMetrics/PowermetricsFallbackProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/SystemMetrics/PowermetricsFallbackProvider.swift; sourceTree = "<group>"; };
+		A60000000000000000000047 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
+		A60000000000000000000048 /* Sources/Presentation/SettingsNavigationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/Presentation/SettingsNavigationModel.swift; sourceTree = "<group>"; };
+		A6000000000000000000004B /* Sources/Data/Stores/AlertMuteStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/Data/Stores/AlertMuteStore.swift; sourceTree = "<group>"; };
+		A6000000000000000000004C /* Sources/Data/Diagnostics/DiagnosticsExporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/Data/Diagnostics/DiagnosticsExporter.swift; sourceTree = "<group>"; };
+		A6000000000000000000004D /* Sources/Presentation/Views/Components/BrandComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/Presentation/Views/Components/BrandComponents.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		A30000000000000000000003 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A7000000000000000000000C /* PulseMacDomain.framework in Frameworks */,
+				A7000000000000000000000D /* PulseMacData.framework in Frameworks */,
+				A7000000000000000000000E /* AppKit.framework in Frameworks */,
+				A7000000000000000000000F /* SwiftUI.framework in Frameworks */,
+				A70000000000000000000010 /* Combine.framework in Frameworks */,
+				A70000000000000000000011 /* UserNotifications.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A30000000000000000000007 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A30000000000000000000009 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A7000000000000000000002B /* UserNotifications.framework in Frameworks */,
+				A7000000000000000000002C /* libsqlite3.tbd in Frameworks */,
+				A70000000000000000000038 /* Combine.framework in Frameworks */,
+				A70000000000000000000049 /* IOKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A3000000000000000000000B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A7000000000000000000002E /* PulseMacDomain.framework in Frameworks */,
+				A7000000000000000000002F /* PulseMacData.framework in Frameworks */,
+				A70000000000000000000030 /* WidgetKit.framework in Frameworks */,
+				A70000000000000000000031 /* SwiftUI.framework in Frameworks */,
+				A70000000000000000000032 /* Combine.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A3000000000000000000000D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A70000000000000000000036 /* PulseMacDomain.framework in Frameworks */,
+				A70000000000000000000037 /* PulseMacData.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		A10000000000000000000002 = {
+			isa = PBXGroup;
+			children = (
+				A10000000000000000000005,
+				A1000000000000000000000E,
+				A10000000000000000000004 /* Frameworks */,
+				A10000000000000000000003 /* Products */,
+				A60000000000000000000026 /* Sources/App/Resources/Info.plist */,
+				A60000000000000000000027 /* Sources/App/PulseMac.entitlements */,
+				A60000000000000000000028 /* Sources/Widgets/Info.plist */,
+				A60000000000000000000029 /* Sources/Widgets/PulseMacWidgets.entitlements */,
+			);
+			sourceTree = "<group>";
+		};
+		A10000000000000000000003 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A6000000000000000000002A /* PulseMac.app */,
+				A6000000000000000000002B /* PulseMacDomain.framework */,
+				A6000000000000000000002C /* PulseMacData.framework */,
+				A6000000000000000000002D /* PulseMacWidgets.appex */,
+				A6000000000000000000002E /* PulseMacTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A10000000000000000000004 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A6000000000000000000002F /* AppKit.framework */,
+				A60000000000000000000030 /* SwiftUI.framework */,
+				A60000000000000000000031 /* Combine.framework */,
+				A60000000000000000000032 /* UserNotifications.framework */,
+				A60000000000000000000033 /* WidgetKit.framework */,
+				A60000000000000000000034 /* libsqlite3.tbd */,
+				A60000000000000000000047 /* IOKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A10000000000000000000005 = {
+			isa = PBXGroup;
+			children = (
+				A10000000000000000000006,
+				A10000000000000000000007,
+				A10000000000000000000008,
+				A10000000000000000000009,
+				A1000000000000000000000A,
+				A1000000000000000000000C,
+				A1000000000000000000000D,
+				A1000000000000000000000F,
+			);
+			sourceTree = "<group>";
+		};
+		A10000000000000000000006 = {
+			isa = PBXGroup;
+			children = (
+				A60000000000000000000001 /* Sources/App/main.swift */,
+				A60000000000000000000002 /* Sources/App/AppDelegate.swift */,
+				A60000000000000000000003 /* Sources/App/MenuBarController.swift */,
+				A60000000000000000000004 /* Sources/App/SettingsWindowController.swift */,
+				A60000000000000000000005 /* Sources/App/AppContainer.swift */,
+			);
+			sourceTree = "<group>";
+		};
+		A10000000000000000000007 = {
+			isa = PBXGroup;
+			children = (
+				A60000000000000000000006 /* Sources/Presentation/MenuBarViewModel.swift */,
+				A60000000000000000000007 /* Sources/Presentation/SettingsViewModel.swift */,
+				A60000000000000000000008 /* Sources/Presentation/AlertsViewModel.swift */,
+				A6000000000000000000003E /* Sources/Presentation/MetricsDashboardViewModel.swift */,
+				A60000000000000000000048 /* Sources/Presentation/SettingsNavigationModel.swift */,
+				A60000000000000000000009 /* Sources/Presentation/Views/MenuBarPopoverView.swift */,
+				A6000000000000000000000A /* Sources/Presentation/Views/SettingsView.swift */,
+				A6000000000000000000003F /* Sources/Presentation/Views/MetricsView.swift */,
+				A60000000000000000000040 /* Sources/Presentation/Views/AlertsView.swift */,
+				A60000000000000000000041 /* Sources/Presentation/Views/PreferencesView.swift */,
+				A6000000000000000000004D /* Sources/Presentation/Views/Components/BrandComponents.swift */,
+			);
+			sourceTree = "<group>";
+		};
+		A10000000000000000000008 = {
+			isa = PBXGroup;
+			children = (
+				A60000000000000000000035 /* Sources/Domain/Info.plist */,
+				A60000000000000000000092 /* Sources/Domain/MetricsCategory.swift */,
+				A6000000000000000000000B /* Sources/Domain/Models/MetricSnapshot.swift */,
+				A6000000000000000000000C /* Sources/Domain/Models/CPUMetrics.swift */,
+				A6000000000000000000000D /* Sources/Domain/Models/MemoryMetrics.swift */,
+				A60000000000000000000037 /* Sources/Domain/Models/DiskMetrics.swift */,
+				A60000000000000000000038 /* Sources/Domain/Models/NetworkMetrics.swift */,
+				A60000000000000000000039 /* Sources/Domain/Models/BatteryMetrics.swift */,
+				A60000000000000000000042 /* Sources/Domain/Models/ProcessSnapshot.swift */,
+				A60000000000000000000043 /* Sources/Domain/Models/TopProcessesSnapshot.swift */,
+				A60000000000000000000045 /* Sources/Domain/Models/ThermalMetrics.swift */,
+				A60000000000000000000090 /* Sources/Domain/Models/ThermalFallbackSample.swift */,
+				A6000000000000000000000E /* Sources/Domain/Models/SamplingInterval.swift */,
+				A6000000000000000000000F /* Sources/Domain/Protocols/MetricProviders.swift */,
+				A60000000000000000000010 /* Sources/Domain/Protocols/AlertStores.swift */,
+				A60000000000000000000011 /* Sources/Domain/Protocols/NotificationClient.swift */,
+				A60000000000000000000012 /* Sources/Domain/Protocols/Clock.swift */,
+				A60000000000000000000013 /* Sources/Domain/Alerts/AlertSeverity.swift */,
+				A60000000000000000000014 /* Sources/Domain/Alerts/AlertRule.swift */,
+				A60000000000000000000015 /* Sources/Domain/Alerts/AlertEvent.swift */,
+				A60000000000000000000016 /* Sources/Domain/Alerts/AlertRuleState.swift */,
+				A60000000000000000000017 /* Sources/Domain/Alerts/AlertRuleEvaluator.swift */,
+				A60000000000000000000018 /* Sources/Domain/Alerts/AlertEngine.swift */,
+			);
+			sourceTree = "<group>";
+		};
+		A10000000000000000000009 = {
+			isa = PBXGroup;
+			children = (
+				A60000000000000000000036 /* Sources/Data/Info.plist */,
+				A60000000000000000000019 /* Sources/Data/Stores/AppGroupMetricsStore.swift */,
+				A6000000000000000000001A /* Sources/Data/Stores/AlertRuleDefaultsStore.swift */,
+				A6000000000000000000004B /* Sources/Data/Stores/AlertMuteStore.swift */,
+				A6000000000000000000004C /* Sources/Data/Diagnostics/DiagnosticsExporter.swift */,
+				A6000000000000000000001B /* Sources/Data/Stores/SettingsStore.swift */,
+				A6000000000000000000001C /* Sources/Data/Sampler/MetricsSampler.swift */,
+				A6000000000000000000001D /* Sources/Data/Notifications/UserNotificationClient.swift */,
+				A6000000000000000000003D /* Sources/Data/Notifications/NotificationGate.swift */,
+			);
+			sourceTree = "<group>";
+		};
+		A1000000000000000000000A = {
+			isa = PBXGroup;
+			children = (
+				A6000000000000000000001E /* Sources/SystemMetrics/CPUMetricsCollector.swift */,
+				A6000000000000000000001F /* Sources/SystemMetrics/MemoryMetricsCollector.swift */,
+				A6000000000000000000003A /* Sources/SystemMetrics/DiskMetricsCollector.swift */,
+				A6000000000000000000003B /* Sources/SystemMetrics/NetworkMetricsCollector.swift */,
+				A6000000000000000000003C /* Sources/SystemMetrics/BatteryMetricsCollector.swift */,
+				A60000000000000000000044 /* Sources/SystemMetrics/TopProcessesCollector.swift */,
+				A60000000000000000000046 /* Sources/SystemMetrics/ThermalMetricsCollector.swift */,
+				A60000000000000000000091 /* Sources/SystemMetrics/PowermetricsFallbackProvider.swift */,
+			);
+			sourceTree = "<group>";
+		};
+		A1000000000000000000000C = {
+			isa = PBXGroup;
+			children = (
+				A60000000000000000000020 /* Sources/Storage/SQLiteAlertHistoryStore.swift */,
+			);
+			sourceTree = "<group>";
+		};
+		A1000000000000000000000D = {
+			isa = PBXGroup;
+			children = (
+				A60000000000000000000021 /* Sources/Widgets/PulseMacWidgets.swift */,
+			);
+			sourceTree = "<group>";
+		};
+		A1000000000000000000000E = {
+			isa = PBXGroup;
+			children = (
+				A60000000000000000000022 /* Tests/PulseMacTests/AlertRuleEvaluatorTests.swift */,
+				A60000000000000000000023 /* Tests/PulseMacTests/NotificationClientTests.swift */,
+				A60000000000000000000024 /* Tests/PulseMacTests/AlertHistoryStoreTests.swift */,
+			);
+			sourceTree = "<group>";
+		};
+		A1000000000000000000000F = {
+			isa = PBXGroup;
+			children = (
+				A60000000000000000000025 /* Sources/App/Resources/Assets.xcassets */,
+			);
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A20000000000000000000001 /* PulseMac */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A40000000000000000000002 /* Build configuration list for PBXNativeTarget "PulseMac" */;
+			buildPhases = (
+				A30000000000000000000001 /* Sources */,
+				A30000000000000000000002 /* Resources */,
+				A30000000000000000000003 /* Frameworks */,
+				A30000000000000000000004 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A80000000000000000000001 /* PBXTargetDependency */,
+				A80000000000000000000002 /* PBXTargetDependency */,
+			);
+			name = PulseMac;
+			productName = PulseMac;
+			productReference = A6000000000000000000002A /* PulseMac.app */;
+			productType = "com.apple.product-type.application";
+		};
+		A20000000000000000000002 /* PulseMacDomain */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A40000000000000000000003 /* Build configuration list for PBXNativeTarget "PulseMacDomain" */;
+			buildPhases = (
+				A30000000000000000000006 /* Sources */,
+				A30000000000000000000007 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PulseMacDomain;
+			productName = PulseMacDomain;
+			productReference = A6000000000000000000002B /* PulseMacDomain.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		A20000000000000000000003 /* PulseMacData */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A40000000000000000000004 /* Build configuration list for PBXNativeTarget "PulseMacData" */;
+			buildPhases = (
+				A30000000000000000000008 /* Sources */,
+				A30000000000000000000009 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A80000000000000000000004 /* PBXTargetDependency */,
+			);
+			name = PulseMacData;
+			productName = PulseMacData;
+			productReference = A6000000000000000000002C /* PulseMacData.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		A20000000000000000000004 /* PulseMacWidgets */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A40000000000000000000005 /* Build configuration list for PBXNativeTarget "PulseMacWidgets" */;
+			buildPhases = (
+				A3000000000000000000000A /* Sources */,
+				A3000000000000000000000B /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A80000000000000000000005 /* PBXTargetDependency */,
+				A80000000000000000000006 /* PBXTargetDependency */,
+			);
+			name = PulseMacWidgets;
+			productName = PulseMacWidgets;
+			productReference = A6000000000000000000002D /* PulseMacWidgets.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		A20000000000000000000005 /* PulseMacTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A40000000000000000000006 /* Build configuration list for PBXNativeTarget "PulseMacTests" */;
+			buildPhases = (
+				A3000000000000000000000C /* Sources */,
+				A3000000000000000000000D /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A80000000000000000000007 /* PBXTargetDependency */,
+				A80000000000000000000008 /* PBXTargetDependency */,
+				A80000000000000000000009 /* PBXTargetDependency */,
+			);
+			name = PulseMacTests;
+			productName = PulseMacTests;
+			productReference = A6000000000000000000002E /* PulseMacTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A10000000000000000000001 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1700;
+			};
+			buildConfigurationList = A40000000000000000000001 /* Build configuration list for PBXProject "PulseMac" */;
+			compatibilityVersion = "Xcode 13.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = A10000000000000000000002;
+			productRefGroup = A10000000000000000000003 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A20000000000000000000001 /* PulseMac */,
+				A20000000000000000000002 /* PulseMacDomain */,
+				A20000000000000000000003 /* PulseMacData */,
+				A20000000000000000000004 /* PulseMacWidgets */,
+				A20000000000000000000005 /* PulseMacTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		A30000000000000000000002 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A7000000000000000000000B /* Sources/App/Resources/Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A30000000000000000000001 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A70000000000000000000001 /* Sources/App/main.swift in Sources */,
+				A70000000000000000000002 /* Sources/App/AppDelegate.swift in Sources */,
+				A70000000000000000000003 /* Sources/App/MenuBarController.swift in Sources */,
+				A70000000000000000000004 /* Sources/App/SettingsWindowController.swift in Sources */,
+				A70000000000000000000005 /* Sources/App/AppContainer.swift in Sources */,
+				A70000000000000000000006 /* Sources/Presentation/MenuBarViewModel.swift in Sources */,
+				A70000000000000000000007 /* Sources/Presentation/SettingsViewModel.swift in Sources */,
+				A70000000000000000000008 /* Sources/Presentation/AlertsViewModel.swift in Sources */,
+				A70000000000000000000040 /* Sources/Presentation/MetricsDashboardViewModel.swift in Sources */,
+				A7000000000000000000004A /* Sources/Presentation/SettingsNavigationModel.swift in Sources */,
+				A70000000000000000000009 /* Sources/Presentation/Views/MenuBarPopoverView.swift in Sources */,
+				A7000000000000000000000A /* Sources/Presentation/Views/SettingsView.swift in Sources */,
+				A70000000000000000000041 /* Sources/Presentation/Views/MetricsView.swift in Sources */,
+				A70000000000000000000042 /* Sources/Presentation/Views/AlertsView.swift in Sources */,
+				A70000000000000000000043 /* Sources/Presentation/Views/PreferencesView.swift in Sources */,
+				A7000000000000000000004D /* Sources/Presentation/Views/Components/BrandComponents.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A30000000000000000000006 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A70000000000000000000015 /* Sources/Domain/Models/MetricSnapshot.swift in Sources */,
+				A70000000000000000000016 /* Sources/Domain/Models/CPUMetrics.swift in Sources */,
+				A70000000000000000000017 /* Sources/Domain/Models/MemoryMetrics.swift in Sources */,
+				A70000000000000000000039 /* Sources/Domain/Models/DiskMetrics.swift in Sources */,
+				A7000000000000000000003A /* Sources/Domain/Models/NetworkMetrics.swift in Sources */,
+				A7000000000000000000003B /* Sources/Domain/Models/BatteryMetrics.swift in Sources */,
+				A70000000000000000000044 /* Sources/Domain/Models/ProcessSnapshot.swift in Sources */,
+				A70000000000000000000045 /* Sources/Domain/Models/TopProcessesSnapshot.swift in Sources */,
+				A70000000000000000000047 /* Sources/Domain/Models/ThermalMetrics.swift in Sources */,
+				A70000000000000000000090 /* Sources/Domain/Models/ThermalFallbackSample.swift in Sources */,
+				A70000000000000000000092 /* Sources/Domain/MetricsCategory.swift in Sources */,
+				A70000000000000000000018 /* Sources/Domain/Models/SamplingInterval.swift in Sources */,
+				A70000000000000000000019 /* Sources/Domain/Protocols/MetricProviders.swift in Sources */,
+				A7000000000000000000001A /* Sources/Domain/Protocols/AlertStores.swift in Sources */,
+				A7000000000000000000001B /* Sources/Domain/Protocols/NotificationClient.swift in Sources */,
+				A7000000000000000000001C /* Sources/Domain/Protocols/Clock.swift in Sources */,
+				A7000000000000000000001D /* Sources/Domain/Alerts/AlertSeverity.swift in Sources */,
+				A7000000000000000000001E /* Sources/Domain/Alerts/AlertRule.swift in Sources */,
+				A7000000000000000000001F /* Sources/Domain/Alerts/AlertEvent.swift in Sources */,
+				A70000000000000000000020 /* Sources/Domain/Alerts/AlertRuleState.swift in Sources */,
+				A70000000000000000000021 /* Sources/Domain/Alerts/AlertRuleEvaluator.swift in Sources */,
+				A70000000000000000000022 /* Sources/Domain/Alerts/AlertEngine.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A30000000000000000000008 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A70000000000000000000023 /* Sources/Data/Stores/AppGroupMetricsStore.swift in Sources */,
+				A70000000000000000000024 /* Sources/Data/Stores/AlertRuleDefaultsStore.swift in Sources */,
+				A7000000000000000000004B /* Sources/Data/Stores/AlertMuteStore.swift in Sources */,
+				A7000000000000000000004C /* Sources/Data/Diagnostics/DiagnosticsExporter.swift in Sources */,
+				A70000000000000000000025 /* Sources/Data/Stores/SettingsStore.swift in Sources */,
+				A70000000000000000000026 /* Sources/Data/Sampler/MetricsSampler.swift in Sources */,
+				A70000000000000000000027 /* Sources/Data/Notifications/UserNotificationClient.swift in Sources */,
+				A7000000000000000000003C /* Sources/Data/Notifications/NotificationGate.swift in Sources */,
+				A70000000000000000000028 /* Sources/SystemMetrics/CPUMetricsCollector.swift in Sources */,
+				A70000000000000000000029 /* Sources/SystemMetrics/MemoryMetricsCollector.swift in Sources */,
+				A7000000000000000000003D /* Sources/SystemMetrics/DiskMetricsCollector.swift in Sources */,
+				A7000000000000000000003E /* Sources/SystemMetrics/NetworkMetricsCollector.swift in Sources */,
+				A7000000000000000000003F /* Sources/SystemMetrics/BatteryMetricsCollector.swift in Sources */,
+				A70000000000000000000046 /* Sources/SystemMetrics/TopProcessesCollector.swift in Sources */,
+				A70000000000000000000048 /* Sources/SystemMetrics/ThermalMetricsCollector.swift in Sources */,
+				A70000000000000000000091 /* Sources/SystemMetrics/PowermetricsFallbackProvider.swift in Sources */,
+				A7000000000000000000002A /* Sources/Storage/SQLiteAlertHistoryStore.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A3000000000000000000000A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A7000000000000000000002D /* Sources/Widgets/PulseMacWidgets.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A3000000000000000000000C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A70000000000000000000033 /* Tests/PulseMacTests/AlertRuleEvaluatorTests.swift in Sources */,
+				A70000000000000000000034 /* Tests/PulseMacTests/NotificationClientTests.swift in Sources */,
+				A70000000000000000000035 /* Tests/PulseMacTests/AlertHistoryStoreTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		A80000000000000000000001 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A20000000000000000000002 /* PulseMacDomain */;
+			targetProxy = A90000000000000000000001 /* PBXContainerItemProxy */;
+		};
+		A80000000000000000000002 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A20000000000000000000003 /* PulseMacData */;
+			targetProxy = A90000000000000000000002 /* PBXContainerItemProxy */;
+		};
+		A80000000000000000000004 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A20000000000000000000002 /* PulseMacDomain */;
+			targetProxy = A90000000000000000000004 /* PBXContainerItemProxy */;
+		};
+		A80000000000000000000005 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A20000000000000000000002 /* PulseMacDomain */;
+			targetProxy = A90000000000000000000005 /* PBXContainerItemProxy */;
+		};
+		A80000000000000000000006 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A20000000000000000000003 /* PulseMacData */;
+			targetProxy = A90000000000000000000006 /* PBXContainerItemProxy */;
+		};
+		A80000000000000000000007 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A20000000000000000000001 /* PulseMac */;
+			targetProxy = A90000000000000000000007 /* PBXContainerItemProxy */;
+		};
+		A80000000000000000000008 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A20000000000000000000002 /* PulseMacDomain */;
+			targetProxy = A90000000000000000000008 /* PBXContainerItemProxy */;
+		};
+		A80000000000000000000009 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A20000000000000000000003 /* PulseMacData */;
+			targetProxy = A90000000000000000000009 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		A50000000000000000000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				SWIFT_VERSION = 5.9;
+			};
+			name = Debug;
+		};
+		A50000000000000000000002 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				SWIFT_VERSION = 5.9;
+			};
+			name = Release;
+		};
+		A50000000000000000000003 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGNING_ALLOWED = YES;
+				CODE_SIGN_ENTITLEMENTS = Sources/App/PulseMac.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = A9W49LG39J;
+				INFOPLIST_FILE = Sources/App/Resources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pulsemac.app;
+				PRODUCT_NAME = PulseMac;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 5.9;
+			};
+			name = Debug;
+		};
+		A50000000000000000000004 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGNING_ALLOWED = YES;
+				CODE_SIGN_ENTITLEMENTS = Sources/App/PulseMac.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = A9W49LG39J;
+				INFOPLIST_FILE = Sources/App/Resources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pulsemac.app;
+				PRODUCT_NAME = PulseMac;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 5.9;
+			};
+			name = Release;
+		};
+		A50000000000000000000005 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGNING_ALLOWED = YES;
+				CODE_SIGNING_REQUIRED = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = A9W49LG39J;
+				INFOPLIST_FILE = Sources/Domain/Info.plist;
+				MACH_O_TYPE = mh_dylib;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pulsemac.domain;
+				PRODUCT_NAME = PulseMacDomain;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.9;
+			};
+			name = Debug;
+		};
+		A50000000000000000000006 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGNING_ALLOWED = YES;
+				CODE_SIGNING_REQUIRED = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = A9W49LG39J;
+				INFOPLIST_FILE = Sources/Domain/Info.plist;
+				MACH_O_TYPE = mh_dylib;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pulsemac.domain;
+				PRODUCT_NAME = PulseMacDomain;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.9;
+			};
+			name = Release;
+		};
+		A50000000000000000000007 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGNING_ALLOWED = YES;
+				CODE_SIGNING_REQUIRED = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = A9W49LG39J;
+				INFOPLIST_FILE = Sources/Data/Info.plist;
+				MACH_O_TYPE = mh_dylib;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pulsemac.data;
+				PRODUCT_NAME = PulseMacData;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.9;
+			};
+			name = Debug;
+		};
+		A50000000000000000000008 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGNING_ALLOWED = YES;
+				CODE_SIGNING_REQUIRED = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = A9W49LG39J;
+				INFOPLIST_FILE = Sources/Data/Info.plist;
+				MACH_O_TYPE = mh_dylib;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pulsemac.data;
+				PRODUCT_NAME = PulseMacData;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.9;
+			};
+			name = Release;
+		};
+		A50000000000000000000009 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGNING_ALLOWED = YES;
+				CODE_SIGN_ENTITLEMENTS = Sources/Widgets/PulseMacWidgets.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = A9W49LG39J;
+				INFOPLIST_FILE = Sources/Widgets/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pulsemac.app.widgets;
+				PRODUCT_NAME = PulseMacWidgets;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 5.9;
+			};
+			name = Debug;
+		};
+		A5000000000000000000000A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGNING_ALLOWED = YES;
+				CODE_SIGN_ENTITLEMENTS = Sources/Widgets/PulseMacWidgets.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = A9W49LG39J;
+				INFOPLIST_FILE = Sources/Widgets/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pulsemac.app.widgets;
+				PRODUCT_NAME = PulseMacWidgets;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 5.9;
+			};
+			name = Release;
+		};
+		A5000000000000000000000B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGNING_ALLOWED = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = A9W49LG39J;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pulsemac.tests;
+				PRODUCT_NAME = PulseMacTests;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 5.9;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PulseMac.app/Contents/MacOS/PulseMac";
+			};
+			name = Debug;
+		};
+		A5000000000000000000000C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGNING_ALLOWED = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = A9W49LG39J;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pulsemac.tests;
+				PRODUCT_NAME = PulseMacTests;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 5.9;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PulseMac.app/Contents/MacOS/PulseMac";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A40000000000000000000001 /* Build configuration list for PBXProject "PulseMac" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A50000000000000000000001 /* Debug */,
+				A50000000000000000000002 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		A40000000000000000000002 /* Build configuration list for PBXNativeTarget "PulseMac" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A50000000000000000000003 /* Debug */,
+				A50000000000000000000004 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		A40000000000000000000003 /* Build configuration list for PBXNativeTarget "PulseMacDomain" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A50000000000000000000005 /* Debug */,
+				A50000000000000000000006 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		A40000000000000000000004 /* Build configuration list for PBXNativeTarget "PulseMacData" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A50000000000000000000007 /* Debug */,
+				A50000000000000000000008 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		A40000000000000000000005 /* Build configuration list for PBXNativeTarget "PulseMacWidgets" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A50000000000000000000009 /* Debug */,
+				A5000000000000000000000A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		A40000000000000000000006 /* Build configuration list for PBXNativeTarget "PulseMacTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A5000000000000000000000B /* Debug */,
+				A5000000000000000000000C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = A10000000000000000000001 /* Project object */;
+}

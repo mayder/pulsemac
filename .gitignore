@@ -1,0 +1,9 @@
+.venv/
+.DS_Store
+DerivedData/
+build/
+xcuserdata/
+*.xcuserstate
+*.moved-aside
+.swiftpm/
+.build/

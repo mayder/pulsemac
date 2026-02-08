@@ -1,0 +1,25 @@
+included:
+  - Sources
+  - Tests
+excluded:
+  - Tools
+  - PulseMac.xcodeproj
+
+opt_in_rules:
+  - empty_count
+  - empty_string
+  - implicit_return
+  - redundant_nil_coalescing
+  - sorted_imports
+
+analyzer_rules:
+  - unused_declaration
+  - unused_import
+
+disabled_rules:
+  - line_length
+  - trailing_whitespace
+  - file_length
+  - type_body_length
+  - function_body_length
+  - cyclomatic_complexity
