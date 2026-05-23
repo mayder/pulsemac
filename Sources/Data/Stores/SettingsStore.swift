@@ -104,3 +104,26 @@ public final class SettingsStore {
     defaults.set(data, forKey: key)
   }
 }
+
+public final class FavoritesStore: FavoritesStoring {
+  private let defaults: UserDefaults
+  private let encoder = JSONEncoder()
+  private let decoder = JSONDecoder()
+  private let key = "pulsemac.favorites"
+
+  public init(suiteName: String) {
+    defaults = UserDefaults(suiteName: suiteName) ?? .standard
+  }
+
+  public func load() -> [ProcessFavorite] {
+    guard let data = defaults.data(forKey: key), let favorites = try? decoder.decode([ProcessFavorite].self, from: data) else {
+      return []
+    }
+    return favorites
+  }
+
+  public func save(_ favorites: [ProcessFavorite]) {
+    guard let data = try? encoder.encode(favorites) else { return }
+    defaults.set(data, forKey: key)
+  }
+}

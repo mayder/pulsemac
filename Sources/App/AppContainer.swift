@@ -11,12 +11,14 @@ final class AppContainer {
   static let settingsDidChangeNotification = Notification.Name("PulseMac.settingsDidChange")
 
   let settingsStore: SettingsStore
+  let favoritesStore: FavoritesStore
   let ruleStore: AlertRuleDefaultsStore
   let historyStore: SQLiteAlertHistoryStore
   let alertMuteStore: AlertMuteStore
   let notificationClient: UserNotificationClient
   let notificationGate: NotificationGate
   let metricsSampler: MetricsSampler
+  let metricsHistoryStore: AppGroupMetricsHistoryStore
   let alertEngine: AlertEngine
   let diagnosticsExporter: DiagnosticsExporter
   let menuBarViewModel: MenuBarViewModel
@@ -25,10 +27,12 @@ final class AppContainer {
   let alertsViewModel: AlertsViewModel
   let processesViewModel: ProcessesViewModel
   let impactViewModel: ImpactViewModel
+  let logsViewModel: SystemLogsViewModel
 
   init() {
     let metricsStore = AppGroupMetricsStore(suiteName: appGroupId)
     settingsStore = SettingsStore(suiteName: appGroupId)
+    favoritesStore = FavoritesStore(suiteName: appGroupId)
     ruleStore = AlertRuleDefaultsStore(suiteName: appGroupId)
     alertMuteStore = AlertMuteStore(suiteName: appGroupId)
 
@@ -46,6 +50,8 @@ final class AppContainer {
       dndEndMinutes: settings.dndEndMinutes
     )
 
+    metricsHistoryStore = AppGroupMetricsHistoryStore(suiteName: appGroupId, retentionDays: settings.retentionDays)
+
     let cpuCollector = CPUMetricsCollector()
     let memoryCollector = MemoryMetricsCollector()
     let diskCollector = DiskMetricsCollector()
@@ -56,6 +62,7 @@ final class AppContainer {
     let impactProcessCollector = TopProcessesCollector()
     let thermalCollector = ThermalMetricsCollector()
     let powermetricsProvider = PowermetricsFallbackProvider()
+    let logReader = UnifiedLogReader()
     metricsSampler = MetricsSampler(
       cpuProvider: cpuCollector,
       memoryProvider: memoryCollector,
@@ -64,7 +71,8 @@ final class AppContainer {
       batteryProvider: batteryCollector,
       topProcessesProvider: topProcessesCollector,
       thermalProvider: thermalCollector,
-      snapshotStore: metricsStore
+      snapshotStore: metricsStore,
+      historyStore: metricsHistoryStore
     )
     metricsSampler.updateOptions(showDisk: settings.showDisk, showNetwork: settings.showNetwork, showBattery: settings.showBattery)
 
@@ -83,7 +91,11 @@ final class AppContainer {
     diagnosticsExporter = exporter
 
     menuBarViewModel = MenuBarViewModel()
-    metricsViewModel = MetricsDashboardViewModel(powermetricsProvider: powermetricsProvider)
+    metricsViewModel = MetricsDashboardViewModel(
+      powermetricsProvider: powermetricsProvider,
+      historyStore: metricsHistoryStore,
+      processResourcesProvider: processResourcesCollector
+    )
     alertsViewModel = AlertsViewModel(
       ruleStore: ruleStore,
       historyStore: historyStore,
@@ -97,19 +109,20 @@ final class AppContainer {
         }
       }
     )
-    processesViewModel = ProcessesViewModel(provider: processResourcesCollector)
+    processesViewModel = ProcessesViewModel(provider: processResourcesCollector, favoritesStore: favoritesStore)
     impactViewModel = ImpactViewModel(
       ruleStore: ruleStore,
       metricsStore: metricsStore,
       processProvider: impactProcessCollector
     )
+    logsViewModel = SystemLogsViewModel(provider: logReader)
     let appGroupIdentifier = appGroupId
     settingsViewModel = SettingsViewModel(
       store: settingsStore,
       onIntervalChange: { [weak metricsSampler] interval in
         metricsSampler?.start(interval: interval)
       },
-      onSettingsChange: { [weak metricsSampler, weak notificationGate, weak metricsViewModel] updated in
+      onSettingsChange: { [weak metricsSampler, weak notificationGate, weak metricsViewModel, weak metricsHistoryStore] updated in
         metricsSampler?.updateOptions(showDisk: updated.showDisk, showNetwork: updated.showNetwork, showBattery: updated.showBattery)
         notificationGate?.isEnabled = updated.notificationsEnabled
         notificationGate?.updateSchedule(
@@ -118,6 +131,7 @@ final class AppContainer {
           endMinutes: updated.dndEndMinutes
         )
         metricsViewModel?.updateVisibility(showDisk: updated.showDisk, showNetwork: updated.showNetwork, showBattery: updated.showBattery)
+        metricsHistoryStore?.updateRetentionDays(updated.retentionDays)
         NotificationCenter.default.post(name: AppContainer.settingsDidChangeNotification, object: updated)
       },
       onRequestNotificationPermission: { [weak notificationGate] completion in
@@ -153,6 +167,28 @@ final class AppContainer {
         } catch {
           return .failure("Falha ao exportar: \(error.localizedDescription)")
         }
+      },
+      onExportQuickReport: { [weak exporter] in
+        let panel = NSSavePanel()
+        panel.allowedContentTypes = [UTType.json]
+        panel.canCreateDirectories = true
+        panel.nameFieldStringValue = "PulseMac-resumo-\(Self.timestampString()).json"
+        let response = panel.runModal()
+        guard response == .OK, let url = panel.url else { return .canceled }
+        guard let exporter else { return .failure("Exportador indisponivel") }
+        do {
+          try exporter.exportQuickReport(to: url)
+          return .success(url)
+        } catch {
+          return .failure("Falha ao exportar: \(error.localizedDescription)")
+        }
+      },
+      onClearAlertHistory: { [weak historyStore] in
+        historyStore?.clearAll()
+      },
+      onOpenDiagnosticsFolder: {
+        let directory = Self.alertsDatabaseURL().deletingLastPathComponent()
+        NSWorkspace.shared.open(directory)
       },
       onFetchAdvancedDiagnostics: { [appGroupIdentifier, weak notificationGate] completion in
         let appInfo = DiagnosticsAppInfo.current()

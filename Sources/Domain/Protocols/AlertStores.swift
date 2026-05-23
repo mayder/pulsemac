@@ -8,4 +8,5 @@ public protocol AlertRuleStore {
 public protocol AlertHistoryStore {
   func record(event: AlertEvent)
   func list(limit: Int) -> [AlertEvent]
+  func clearAll()
 }

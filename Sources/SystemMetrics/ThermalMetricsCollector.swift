@@ -173,7 +173,7 @@ private final class SMCClient {
       }
     }
     guard service != 0 else { return false }
-    let types: [UInt32] = [0, 1, 2, 3]
+    let types: [UInt32] = Array(0 ... 7)
     var openedResult = KERN_FAILURE
     for type in types {
       openedResult = IOServiceOpen(service, mach_task_self_, type, &connection)

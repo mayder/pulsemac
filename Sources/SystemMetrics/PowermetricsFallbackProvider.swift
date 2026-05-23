@@ -79,9 +79,9 @@ public final class PowermetricsFallbackProvider: ThermalFallbackProviding {
   private static func preferredSamplers() -> [String] {
     let brand = cpuBrandString().lowercased()
     if brand.contains("apple") {
-      return ["thermal", "smcstats", "smc"]
+      return ["thermal", "cpu_power", "gpu_power", "smcstats", "smc", ""]
     }
-    return ["smc", "thermal", "smcstats"]
+    return ["smc", "thermal", "smcstats", ""]
   }
 
   private static func cpuBrandString() -> String {
@@ -98,7 +98,10 @@ public final class PowermetricsFallbackProvider: ThermalFallbackProviding {
   }
 
   private func runPowermetrics(sampler: String) -> RunResult {
-    let script = "do shell script \"/usr/bin/powermetrics --samplers \(sampler) -n 1\" with administrator privileges"
+    let command = sampler.isEmpty
+      ? "/usr/bin/powermetrics -n 1"
+      : "/usr/bin/powermetrics --samplers \(sampler) -n 1"
+    let script = "do shell script \"\(command)\" with administrator privileges"
     let task = Process()
     task.executableURL = URL(fileURLWithPath: "/usr/bin/osascript")
     task.arguments = ["-e", script]
@@ -131,7 +134,7 @@ public final class PowermetricsFallbackProvider: ThermalFallbackProviding {
   }
 
   private static func extractTemperatures(from text: String) -> [Double] {
-    let pattern = #"(?i)(cpu|gpu|soc|die|package|core|cluster).*?([0-9]+(?:\.[0-9]+)?)\s*c"#
+    let pattern = #"(?i)(cpu|gpu|soc|die|package|core|cluster|temp|temperature).*?([0-9]+(?:\.[0-9]+)?)\s*°?\s*c"#
     return extractNumbers(pattern: pattern, in: text)
   }
 

@@ -6,11 +6,13 @@ public enum SettingsTab: String, CaseIterable, Identifiable {
   case processes
   case alerts
   case impact
+  case logs
+  case widgets
   case preferences
   case about
 
   public static var allCases: [SettingsTab] {
-    [.metrics, .processes, .alerts, .impact, .preferences, .about]
+    [.metrics, .processes, .alerts, .impact, .logs, .widgets, .preferences, .about]
   }
 
   public var id: String {
@@ -27,6 +29,10 @@ public enum SettingsTab: String, CaseIterable, Identifiable {
       "Processos"
     case .impact:
       "Impacto"
+    case .logs:
+      "Logs"
+    case .widgets:
+      "Widgets"
     case .preferences:
       "Ajustes"
     case .about:
@@ -44,6 +50,10 @@ public enum SettingsTab: String, CaseIterable, Identifiable {
       "bell"
     case .impact:
       "exclamationmark.triangle"
+    case .logs:
+      "doc.text.magnifyingglass"
+    case .widgets:
+      "rectangle.grid.2x2"
     case .preferences:
       "gearshape"
     case .about:

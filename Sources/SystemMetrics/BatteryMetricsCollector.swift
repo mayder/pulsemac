@@ -14,9 +14,15 @@ public final class BatteryMetricsCollector: BatteryMetricsProviding {
       guard let type = description[kIOPSTypeKey as String] as? String else { continue }
       if type != kIOPSInternalBatteryType { continue }
 
-      let current = description[kIOPSCurrentCapacityKey as String] as? Double ?? 0
-      let max = description[kIOPSMaxCapacityKey as String] as? Double ?? 0
+      let current = Self.doubleValue(description[kIOPSCurrentCapacityKey as String])
+      let max = Self.doubleValue(description[kIOPSMaxCapacityKey as String])
+      let design = Self.doubleValue(description[kIOPSDesignCapacityKey as String])
+      let cycleCount = Self.intValue(description["Cycle Count"])
+      let isCharged = description[kIOPSIsChargedKey as String] as? Bool
       let isCharging = description[kIOPSIsChargingKey as String] as? Bool ?? false
+      let timeToEmpty = Self.intValue(description[kIOPSTimeToEmptyKey as String])
+      let timeToFull = Self.intValue(description[kIOPSTimeToFullChargeKey as String])
+      let health = description[kIOPSBatteryHealthKey as String] as? String
 
       let powerState = description[kIOPSPowerSourceStateKey as String] as? String ?? ""
       let sourceType: PowerSource = if powerState == kIOPSACPowerValue {
@@ -27,10 +33,37 @@ public final class BatteryMetricsCollector: BatteryMetricsProviding {
         .unknown
       }
 
-      let percent = max > 0 ? (current / max) * 100.0 : 0
-      return BatteryMetrics(chargePercent: percent, isCharging: isCharging, powerSource: sourceType)
+      let safeMax = max ?? 0
+      let safeCurrent = current ?? 0
+      let percent = safeMax > 0 ? (safeCurrent / safeMax) * 100.0 : 0
+      return BatteryMetrics(
+        chargePercent: percent,
+        isCharging: isCharging,
+        powerSource: sourceType,
+        currentCapacity: current,
+        maxCapacity: max,
+        designCapacity: design,
+        cycleCount: cycleCount,
+        isCharged: isCharged,
+        timeToEmptyMinutes: timeToEmpty,
+        timeToFullMinutes: timeToFull,
+        health: health
+      )
     }
 
+    return nil
+  }
+
+  private static func doubleValue(_ value: Any?) -> Double? {
+    if let doubleValue = value as? Double { return doubleValue }
+    if let intValue = value as? Int { return Double(intValue) }
+    if let numberValue = value as? NSNumber { return numberValue.doubleValue }
+    return nil
+  }
+
+  private static func intValue(_ value: Any?) -> Int? {
+    if let intValue = value as? Int { return intValue }
+    if let numberValue = value as? NSNumber { return numberValue.intValue }
     return nil
   }
 }

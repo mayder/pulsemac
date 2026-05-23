@@ -1,6 +1,0 @@
-[paths]
-repo_root = "."
-check_script = "check.sh"
-quality_roadmap = "QUALITY_ROADMAP.md"
-roadmap = "ROADMAP.md"
-checklist = "CHECKLIST.md"

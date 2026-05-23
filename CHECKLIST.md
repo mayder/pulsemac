@@ -69,23 +69,36 @@
 - [x] Navegacao por teclado nas abas (Cmd+1..5)
 
 ## Pendencias (para amanha)
-- [ ] Decidir estrategia App Sandbox x App Group x Widgets (A/B/C)
-- [ ] Revisar warnings "Publishing changes from within view updates"
-- [ ] Ajustar CPU por processo com normalizacao por numero de nucleos
-- [ ] Melhorar leitura de disco por processo (manter ultimo valor por alguns segundos)
+- [x] Decidir estrategia App Sandbox x App Group x Widgets (A/B/C) (decisao: App Sandbox OFF, App Group ON p/ Widgets, sem rede)
+- [x] Revisar warnings "Publishing changes from within view updates" (refreshIfNeeded defasado no onAppear)
+- [x] Ajustar CPU por processo com normalizacao por numero de nucleos
+- [x] Melhorar leitura de disco por processo (manter ultimo valor por alguns segundos)
 - [x] Adicionar menu Window padrao do macOS
-- [ ] Evoluir cada aba (Metricas/Processos/Alertas/Impacto/Ajustes/Sobre) com conteudo mais detalhado e contextual
+- [x] Metricas: aba CPU com detalhes (carga, nucleos, uso por nucleo).
+- [x] Metricas: aba Disco com detalhes (ocupacao e throughput por processo).
+- [x] Metricas: aba Rede com detalhes (picos e medias).
+- [x] Metricas: aba Bateria com detalhes (estado, ciclos, tempo e capacidade).
+- [ ] Metricas: aba Sensores com detalhamento e explicacoes (quando indisponivel).
+- [ ] Processos: detalhar processos agrupados e contexto extra.
+- [ ] Alertas: detalhar regras e eventos com contexto.
+- [ ] Impacto: detalhar causas provaveis e links rapidos.
+- [ ] Ajustes: detalhar configuracoes por categoria.
+- [ ] Sobre: detalhar versao, sistema e creditos.
+- [x] Sobre: mostrar informacoes do app e do sistema (versao, modelo, CPU, memoria, locale)
 - [x] Metricas: detalhar Memoria (usado/livre/total/%)
 - [x] Alertas: ao clicar na notificacao, abrir a tela de Metricas na categoria correspondente (CPU/Memoria/Disco/Rede/Bateria/Sensores)
 - [x] Alertas: evitar notificacoes duplicadas do mesmo alerta (remover anterior e enviar a nova)
-- [ ] Historico de metricas (linha temporal). Aceitacao: selecionar metrica e ver serie temporal com filtros de periodo (1h/24h/7d), sem travar a UI.
-- [ ] Logs do sistema (erros recentes). Aceitacao: lista paginada com filtro por severidade e busca; coleta sob demanda.
-- [ ] Consumo por app (agrupado por bundle). Aceitacao: tabela agrupada por app com CPU/Memoria/Disco somados; ordenar por consumo.
-- [ ] Relatorio rapido (exportar resumo). Aceitacao: gerar JSON local com snapshot atual + top processos + regras ativas.
-- [ ] Atalhos (acoes rapidas). Aceitacao: botao para pausar alertas, limpar historico local, abrir pastas de diagnostico.
-- [ ] Favoritos (processos monitorados). Aceitacao: usuario marca processos; lista dedicada com alertas opcionais por favorito.
-- [ ] Comparar periodos (hoje x ontem). Aceitacao: comparativo simples com variacao % para CPU/RAM/Disco/Rede.
-- [ ] Widget preview. Aceitacao: tela com preview dos tamanhos (P/M/G) e ultima atualizacao.
+- [x] Historico de metricas (linha temporal). Aceitacao: selecionar metrica e ver serie temporal com filtros de periodo (1h/24h/7d), sem travar a UI.
+- [x] Logs do sistema (erros recentes). Aceitacao: lista paginada com filtro por severidade e busca; coleta sob demanda.
+- [x] Consumo por app (agrupado por bundle). Aceitacao: tabela agrupada por app com CPU/Memoria/Disco somados; ordenar por consumo.
+- [x] Relatorio rapido (exportar resumo). Aceitacao: gerar JSON local com snapshot atual + top processos + regras ativas.
+- [x] Atalhos (acoes rapidas). Aceitacao: botao para pausar alertas, limpar historico local, abrir pastas de diagnostico.
+- [x] Favoritos (processos monitorados). Aceitacao: usuario marca processos; lista dedicada com alertas opcionais por favorito.
+- [x] Comparar periodos (hoje x ontem). Aceitacao: comparativo simples com variacao % para CPU/RAM/Disco/Rede.
+- [x] Metricas: bloco Top processos com detalhe e sparklines na Visao geral.
+- [x] Processos: resumo com contadores + acao de atualizar e limpar busca.
+- [x] Alertas: resumo com contagem de regras e ultimo evento.
+- [x] Widget preview. Aceitacao: tela com preview dos tamanhos (P/M/G) e ultima atualizacao.
 - [x] Diagnostico avancado (health do app). Aceitacao: mostra versao, status de permissao, App Group, sandbox e ultimo erro.
 
 ## Criterios de aceitacao (MVP)

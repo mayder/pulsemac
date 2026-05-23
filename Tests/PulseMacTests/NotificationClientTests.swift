@@ -63,4 +63,8 @@ private final class InMemoryHistoryStore: AlertHistoryStore {
   func list(limit: Int) -> [AlertEvent] {
     Array(events.prefix(limit))
   }
+
+  func clearAll() {
+    events.removeAll()
+  }
 }

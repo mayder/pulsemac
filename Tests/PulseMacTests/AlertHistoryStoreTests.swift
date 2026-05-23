@@ -12,6 +12,16 @@ final class AlertHistoryStoreTests: XCTestCase {
     XCTAssertEqual(list.count, 1)
     XCTAssertEqual(list.first?.message, "Teste")
   }
+
+  func testInMemoryStoreClears() {
+    let store = InMemoryHistoryStore()
+    let event = AlertEvent(ruleId: UUID(), timestamp: Date(), severity: .info, message: "Teste")
+
+    store.record(event: event)
+    store.clearAll()
+
+    XCTAssertEqual(store.list(limit: 10).count, 0)
+  }
 }
 
 private final class InMemoryHistoryStore: AlertHistoryStore {
@@ -23,5 +33,9 @@ private final class InMemoryHistoryStore: AlertHistoryStore {
 
   func list(limit: Int) -> [AlertEvent] {
     Array(events.prefix(limit))
+  }
+
+  func clearAll() {
+    events.removeAll()
   }
 }

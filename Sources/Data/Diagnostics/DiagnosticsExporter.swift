@@ -1,5 +1,6 @@
 import Darwin
 import Foundation
+import OSLog
 import PulseMacDomain
 
 public struct DiagnosticsReport: Codable {
@@ -27,6 +28,25 @@ public struct DiagnosticsReport: Codable {
     self.alertRules = alertRules
     self.alertHistory = alertHistory
     self.lastSnapshot = lastSnapshot
+  }
+}
+
+public struct QuickReport: Codable {
+  public let generatedAt: Date
+  public let snapshot: MetricSnapshot?
+  public let topProcesses: TopProcessesSnapshot?
+  public let activeRules: [AlertRule]
+
+  public init(
+    generatedAt: Date,
+    snapshot: MetricSnapshot?,
+    topProcesses: TopProcessesSnapshot?,
+    activeRules: [AlertRule]
+  ) {
+    self.generatedAt = generatedAt
+    self.snapshot = snapshot
+    self.topProcesses = topProcesses
+    self.activeRules = activeRules
   }
 }
 
@@ -133,6 +153,12 @@ public final class DiagnosticsExporter {
     try data.write(to: url, options: [.atomic])
   }
 
+  public func exportQuickReport(to url: URL) throws {
+    let report = makeQuickReport()
+    let data = try encoder.encode(report)
+    try data.write(to: url, options: [.atomic])
+  }
+
   public func makeReport() -> DiagnosticsReport {
     let settings = settingsStore.load()
     let rules = ruleStore.loadRules()
@@ -146,6 +172,17 @@ public final class DiagnosticsExporter {
       alertRules: rules,
       alertHistory: history,
       lastSnapshot: snapshot
+    )
+  }
+
+  public func makeQuickReport() -> QuickReport {
+    let snapshot = metricsStore.load()
+    let rules = ruleStore.loadRules().filter(\.isEnabled)
+    return QuickReport(
+      generatedAt: Date(),
+      snapshot: snapshot,
+      topProcesses: snapshot?.topProcesses,
+      activeRules: rules
     )
   }
 }
@@ -179,6 +216,58 @@ public final class DiagnosticsLogger {
   public func snapshot() -> DiagnosticsErrorEntry? {
     queue.sync {
       lastError
+    }
+  }
+}
+
+public final class UnifiedLogReader: SystemLogProviding {
+  public init() {}
+
+  public func readEntries(since: Date, limit: Int) -> [SystemLogEntry] {
+    guard limit > 0 else { return [] }
+    do {
+      let store = try OSLogStore.local()
+      let position = store.position(date: since)
+      let entries = try store.getEntries(at: position, matching: NSPredicate(value: true))
+      var items: [SystemLogEntry] = []
+      items.reserveCapacity(min(limit, 200))
+      for case let entry as OSLogEntryLog in entries {
+        let level = Self.mapLevel(entry.level)
+        items.append(
+          SystemLogEntry(
+            date: entry.date,
+            level: level,
+            subsystem: entry.subsystem,
+            category: entry.category,
+            process: entry.process,
+            message: entry.composedMessage
+          )
+        )
+        if items.count >= limit {
+          break
+        }
+      }
+      return items
+    } catch {
+      DiagnosticsLogger.shared.record("Falha ao ler logs: \(error.localizedDescription)", context: "Logs")
+      return []
+    }
+  }
+
+  private static func mapLevel(_ level: OSLogEntryLog.Level) -> SystemLogLevel {
+    switch level {
+    case .debug:
+      return .debug
+    case .info:
+      return .info
+    case .notice:
+      return .notice
+    case .error:
+      return .error
+    case .fault:
+      return .fault
+    @unknown default:
+      return .info
     }
   }
 }

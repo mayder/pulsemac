@@ -16,6 +16,7 @@ public final class MetricsSampler {
   private let topProcessesLimit: Int
   private let thermalProvider: ThermalMetricsProviding?
   private let snapshotStore: MetricsSnapshotStore
+  private let historyStore: MetricsHistoryStoring?
   private let subject: CurrentValueSubject<MetricSnapshot, Never>
   private let queue: DispatchQueue
   private var timer: DispatchSourceTimer?
@@ -35,7 +36,8 @@ public final class MetricsSampler {
     topProcessesProvider: TopProcessesProviding? = nil,
     topProcessesLimit: Int = 5,
     thermalProvider: ThermalMetricsProviding? = nil,
-    snapshotStore: MetricsSnapshotStore
+    snapshotStore: MetricsSnapshotStore,
+    historyStore: MetricsHistoryStoring? = nil
   ) {
     self.cpuProvider = cpuProvider
     self.memoryProvider = memoryProvider
@@ -46,6 +48,7 @@ public final class MetricsSampler {
     self.topProcessesLimit = topProcessesLimit
     self.thermalProvider = thermalProvider
     self.snapshotStore = snapshotStore
+    self.historyStore = historyStore
     let initial = MetricSnapshot(
       timestamp: Date(),
       cpu: CPUMetrics(usagePercent: 0),
@@ -96,6 +99,7 @@ public final class MetricsSampler {
       thermal: thermal
     )
     snapshotStore.save(snapshot)
+    historyStore?.append(MetricHistoryEntry(snapshot: snapshot))
     subject.send(snapshot)
   }
 

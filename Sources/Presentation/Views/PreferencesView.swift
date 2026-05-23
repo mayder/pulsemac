@@ -138,9 +138,60 @@ public struct PreferencesView: View {
               .font(.caption)
               .foregroundColor(.secondary)
           }
+          Button {
+            viewModel.exportQuickReport()
+          } label: {
+            Label("Exportar resumo (JSON)", systemImage: "doc.text")
+          }
+          .buttonStyle(.bordered)
+          if !viewModel.quickReportStatusText.isEmpty {
+            Text(viewModel.quickReportStatusText)
+              .font(.caption)
+              .foregroundColor(.secondary)
+          }
           Text("Arquivo local, sem upload.")
             .font(.caption)
             .foregroundColor(.secondary)
+        }
+
+        CardSection("Acoes rapidas") {
+          HStack(spacing: 12) {
+            if viewModel.notificationsEnabled {
+              Button {
+                viewModel.pauseAlerts()
+              } label: {
+                Label("Pausar alertas", systemImage: "pause.circle")
+              }
+              .buttonStyle(.bordered)
+            } else {
+              Button {
+                viewModel.resumeAlerts()
+              } label: {
+                Label("Retomar alertas", systemImage: "play.circle")
+              }
+              .buttonStyle(.borderedProminent)
+            }
+
+            Button {
+              viewModel.clearAlertHistory()
+            } label: {
+              Label("Limpar historico", systemImage: "trash")
+            }
+            .buttonStyle(.bordered)
+
+            Button {
+              viewModel.openDiagnosticsFolder()
+            } label: {
+              Label("Abrir pasta do app", systemImage: "folder")
+            }
+            .buttonStyle(.bordered)
+          }
+
+          if !viewModel.quickActionsStatusText.isEmpty {
+            Text(viewModel.quickActionsStatusText)
+              .font(.caption)
+              .foregroundColor(.secondary)
+          }
         }
 
         CardSection("Diagnostico avancado") {

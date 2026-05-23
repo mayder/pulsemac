@@ -58,11 +58,30 @@ public struct MetricsView: View {
     .onAppear {
       DispatchQueue.main.async {
         ensureSelectedProcess()
+        viewModel.refreshHistoryIfNeeded()
+        viewModel.refreshComparisonIfNeeded()
       }
     }
     .onChange(of: viewModel.processOverview) { _ in
       DispatchQueue.main.async {
         ensureSelectedProcess()
+      }
+    }
+    .onChange(of: viewModel.selectedHistoryMetric) { _ in
+      DispatchQueue.main.async {
+        viewModel.refreshHistory()
+      }
+    }
+    .onChange(of: viewModel.selectedHistoryRange) { _ in
+      DispatchQueue.main.async {
+        viewModel.refreshHistory()
+      }
+    }
+    .onChange(of: viewModel.selectedCategory) { newValue in
+      if newValue == .disk {
+        DispatchQueue.main.async {
+          viewModel.refreshDiskActivityIfNeeded()
+        }
       }
     }
   }
@@ -119,53 +138,229 @@ public struct MetricsView: View {
   }
 
   private var overviewSection: some View {
-    GroupBox("Monitor") {
-      VStack(alignment: .leading, spacing: 12) {
-        let columns = [
-          GridItem(.flexible(), spacing: 12),
-          GridItem(.flexible(), spacing: 12)
-        ]
+    VStack(alignment: .leading, spacing: 12) {
+      GroupBox("Monitor") {
+        VStack(alignment: .leading, spacing: 12) {
+          let columns = [
+            GridItem(.flexible(), spacing: 12),
+            GridItem(.flexible(), spacing: 12)
+          ]
 
-        LazyVGrid(columns: columns, spacing: 12) {
-          MetricGaugeView(
-            title: "CPU",
-            value: viewModel.cpuPercent,
-            valueText: String(format: "%.0f%%", viewModel.cpuPercent),
-            range: 0 ... 100,
-            color: .pink,
-            history: viewModel.cpuHistory,
-            subtitle: "Uso"
-          )
-          MetricGaugeView(
-            title: "RAM",
-            value: viewModel.memoryPercent,
-            valueText: String(format: "%.0f%%", viewModel.memoryPercent),
-            range: 0 ... 100,
-            color: .blue,
-            history: viewModel.memoryHistory,
-            subtitle: overviewMemorySubtitle
-          )
-          MetricGaugeView(
-            title: "Disco livre",
-            value: viewModel.diskFreePercent,
-            valueText: viewModel.diskFreePercent.map { String(format: "%.0f%%", $0) } ?? "--",
-            range: 0 ... 100,
-            color: .green,
-            history: viewModel.diskHistory,
-            subtitle: overviewDiskSubtitle
-          )
-          MetricGaugeView(
-            title: "Bateria",
-            value: viewModel.batteryPercent,
-            valueText: viewModel.batteryPercent.map { String(format: "%.0f%%", $0) } ?? "--",
-            range: 0 ... 100,
-            color: .orange,
-            history: viewModel.batteryHistory,
-            subtitle: overviewBatterySubtitle
-          )
+          LazyVGrid(columns: columns, spacing: 12) {
+            MetricGaugeView(
+              title: "CPU",
+              value: viewModel.cpuPercent,
+              valueText: String(format: "%.0f%%", viewModel.cpuPercent),
+              range: 0 ... 100,
+              color: .pink,
+              history: viewModel.cpuHistory,
+              subtitle: "Uso"
+            )
+            MetricGaugeView(
+              title: "RAM",
+              value: viewModel.memoryPercent,
+              valueText: String(format: "%.0f%%", viewModel.memoryPercent),
+              range: 0 ... 100,
+              color: .blue,
+              history: viewModel.memoryHistory,
+              subtitle: overviewMemorySubtitle
+            )
+            MetricGaugeView(
+              title: "Disco livre",
+              value: viewModel.diskFreePercent,
+              valueText: viewModel.diskFreePercent.map { String(format: "%.0f%%", $0) } ?? "--",
+              range: 0 ... 100,
+              color: .green,
+              history: viewModel.diskHistory,
+              subtitle: overviewDiskSubtitle
+            )
+            MetricGaugeView(
+              title: "Bateria",
+              value: viewModel.batteryPercent,
+              valueText: viewModel.batteryPercent.map { String(format: "%.0f%%", $0) } ?? "--",
+              range: 0 ... 100,
+              color: .orange,
+              history: viewModel.batteryHistory,
+              subtitle: overviewBatterySubtitle
+            )
+          }
+        }
+      }
+      historySection
+      comparisonSection
+      processOverviewSection
+    }
+  }
+
+  private var historySection: some View {
+    GroupBox("Historico de metricas") {
+      VStack(alignment: .leading, spacing: 12) {
+        HStack(spacing: 12) {
+          Picker("Metrica", selection: $viewModel.selectedHistoryMetric) {
+            ForEach(MetricsHistoryMetric.allCases) { metric in
+              Text(metric.label).tag(metric)
+            }
+          }
+          .frame(width: 220)
+
+          Picker("Periodo", selection: $viewModel.selectedHistoryRange) {
+            ForEach(MetricsHistoryRange.allCases) { range in
+              Text(range.label).tag(range)
+            }
+          }
+          .frame(width: 140)
+
+          Spacer()
+
+          Button {
+            viewModel.refreshHistory()
+          } label: {
+            Label("Atualizar", systemImage: "arrow.clockwise")
+          }
+          .buttonStyle(.borderedProminent)
+        }
+
+        SparklineView(
+          values: viewModel.historyValues,
+          minValue: viewModel.historyRange.lowerBound,
+          maxValue: viewModel.historyRange.upperBound,
+          lineColor: BrandStyle.accent,
+          dense: true,
+          showFill: true
+        )
+        .frame(height: 120)
+
+        if !viewModel.historyStatusText.isEmpty {
+          Text(viewModel.historyStatusText)
+            .font(.caption)
+            .foregroundColor(.secondary)
         }
       }
     }
+  }
+
+  private var comparisonSection: some View {
+    GroupBox("Comparar periodos") {
+      VStack(alignment: .leading, spacing: 12) {
+        HStack {
+          Text("Hoje x ontem")
+            .font(.caption)
+            .foregroundColor(.secondary)
+          Spacer()
+          Button {
+            viewModel.refreshComparison()
+          } label: {
+            Label("Atualizar", systemImage: "arrow.clockwise")
+          }
+          .buttonStyle(.bordered)
+        }
+
+        Grid(alignment: .leading, horizontalSpacing: 16, verticalSpacing: 8) {
+          GridRow {
+            Text("Metrica")
+            Text("Hoje")
+            Text("Ontem")
+            Text("Delta")
+          }
+          .font(.caption)
+          .foregroundColor(.secondary)
+
+          ForEach(viewModel.comparisonRows) { row in
+            let deltaColor: Color = row.deltaText == "--"
+              ? .secondary
+              : (row.deltaText.hasPrefix("-") ? .red : BrandStyle.accent)
+            GridRow {
+              Text(row.title)
+              Text(row.todayText)
+              Text(row.yesterdayText)
+              Text(row.deltaText)
+                .foregroundColor(deltaColor)
+            }
+            .font(.callout)
+          }
+        }
+
+        if !viewModel.comparisonStatusText.isEmpty {
+          Text(viewModel.comparisonStatusText)
+            .font(.caption)
+            .foregroundColor(.secondary)
+        }
+      }
+    }
+  }
+
+  private var processOverviewSection: some View {
+    GroupBox("Top processos") {
+      if viewModel.processOverview.isEmpty {
+        Text("Sem dados de processos no momento.")
+          .foregroundColor(.secondary)
+      } else {
+        HStack(alignment: .top, spacing: 12) {
+          VStack(alignment: .leading, spacing: 6) {
+            ForEach(viewModel.processOverview.prefix(8)) { row in
+              Button {
+                selectedProcessId = row.id
+              } label: {
+                HStack(spacing: 8) {
+                  Text(row.name)
+                    .lineLimit(1)
+                  Spacer()
+                  Text(row.cpuText)
+                    .foregroundColor(.secondary)
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.vertical, 6)
+                .padding(.horizontal, 8)
+                .background(
+                  RoundedRectangle(cornerRadius: 8)
+                    .fill(selectedProcessId == row.id ? BrandStyle.surface : Color.clear)
+                )
+              }
+              .buttonStyle(.plain)
+            }
+          }
+          .frame(maxWidth: .infinity, alignment: .leading)
+
+          if let detail = selectedProcessDetail {
+            processDetailCard(detail)
+          } else {
+            Text("Selecione um processo para ver detalhes.")
+              .foregroundColor(.secondary)
+              .frame(maxWidth: .infinity, alignment: .leading)
+          }
+        }
+      }
+    }
+  }
+
+  private func processDetailCard(_ detail: ProcessDetail) -> some View {
+    GlassCard {
+      VStack(alignment: .leading, spacing: 8) {
+        Text(detail.name)
+          .font(.headline)
+        HStack(spacing: 12) {
+          InfoPill("CPU", value: detail.cpuText, accent: .pink)
+          InfoPill("Memoria", value: detail.memoryText, accent: .blue)
+        }
+        SparklineView(
+          values: detail.history.cpuSeries,
+          minValue: 0,
+          maxValue: max(detail.history.cpuSeries.max() ?? 0, 1),
+          lineColor: .pink,
+          dense: true,
+          showFill: true
+        )
+        SparklineView(
+          values: detail.history.memorySeries,
+          minValue: 0,
+          maxValue: max(detail.history.memorySeries.max() ?? 0, 1),
+          lineColor: .blue,
+          dense: true,
+          showFill: true
+        )
+      }
+    }
+    .frame(maxWidth: .infinity, alignment: .leading)
   }
 
   private var cpuSection: some View {
@@ -180,6 +375,28 @@ public struct MetricsView: View {
           history: viewModel.cpuHistory,
           subtitle: "Uso atual"
         )
+      }
+      GroupBox("Detalhes") {
+        let columns = [
+          GridItem(.flexible(), spacing: 12),
+          GridItem(.flexible(), spacing: 12),
+          GridItem(.flexible(), spacing: 12)
+        ]
+        LazyVGrid(columns: columns, spacing: 12) {
+          InfoPill("Nucleos logicos", value: "\(viewModel.cpuLogicalCores)", accent: .pink)
+          InfoPill("Nucleos ativos", value: "\(viewModel.cpuActiveCores)", accent: .pink)
+          InfoPill("Carga 1m", value: cpuLoad1Text, accent: .pink)
+          InfoPill("Carga 5m", value: cpuLoad5Text, accent: .pink)
+          InfoPill("Carga 15m", value: cpuLoad15Text, accent: .pink)
+        }
+      }
+      GroupBox("Nucleos") {
+        if viewModel.cpuPerCoreUsage.isEmpty {
+          Text("Sem dados por nucleo.")
+            .foregroundColor(.secondary)
+        } else {
+          CoreUsageGrid(values: viewModel.cpuPerCoreUsage)
+        }
       }
       GroupBox("Processos (CPU)") {
         processList(rows: viewModel.topCpuProcesses, valueText: { $0.cpuText })
@@ -239,60 +456,135 @@ public struct MetricsView: View {
         LazyVGrid(columns: columns, spacing: 12) {
           InfoPill("Disco usado", value: diskUsedText, accent: .green)
           InfoPill("Disco livre", value: diskFreeText, accent: .green)
+          InfoPill("Disco total", value: diskTotalText, accent: .green)
+          InfoPill("Uso %", value: diskUsedPercentText, accent: .green)
+        }
+      }
+      GroupBox("Atividade") {
+        VStack(alignment: .leading, spacing: 10) {
+          HStack(spacing: 12) {
+            InfoPill("Leitura", value: diskRateText(viewModel.diskReadBytesPerSec), accent: .green)
+            InfoPill("Gravacao", value: diskRateText(viewModel.diskWriteBytesPerSec), accent: .green)
+            InfoPill("Total", value: diskRateText(totalDiskRate), accent: .green)
+          }
+          HStack {
+            if !viewModel.diskActivityUpdatedText.isEmpty {
+              Text(viewModel.diskActivityUpdatedText)
+                .font(.caption)
+                .foregroundColor(.secondary)
+            }
+            Spacer()
+            Button {
+              viewModel.refreshDiskActivity()
+            } label: {
+              Label("Atualizar atividade", systemImage: "arrow.clockwise")
+            }
+            .buttonStyle(.bordered)
+          }
+          if !viewModel.diskActivityStatusText.isEmpty {
+            Text(viewModel.diskActivityStatusText)
+              .font(.caption)
+              .foregroundColor(.secondary)
+          }
+          if viewModel.topDiskProcesses.isEmpty {
+            Text("Sem dados de disco por processo.")
+              .foregroundColor(.secondary)
+          } else {
+            VStack(alignment: .leading, spacing: 6) {
+              ForEach(viewModel.topDiskProcesses) { row in
+                HStack {
+                  Text(row.name)
+                    .lineLimit(1)
+                  Spacer()
+                  Text("\(diskRateText(row.readBytesPerSec)) ↓ / \(diskRateText(row.writeBytesPerSec)) ↑")
+                    .foregroundColor(.secondary)
+                }
+              }
+            }
+          }
         }
       }
     }
   }
 
   private var networkSection: some View {
-    GroupBox("Rede (KB/s)") {
-      VStack(alignment: .leading, spacing: 8) {
-        HStack(spacing: 12) {
-          InfoPill(
-            "Download",
-            value: viewModel.networkDownloadKBps.map { String(format: "%.0f KB/s", $0) } ?? "--",
-            accent: .blue
-          )
-          InfoPill(
-            "Upload",
-            value: viewModel.networkUploadKBps.map { String(format: "%.0f KB/s", $0) } ?? "--",
-            accent: .purple
-          )
-        }
+    VStack(alignment: .leading, spacing: 12) {
+      GroupBox("Rede (KB/s)") {
+        VStack(alignment: .leading, spacing: 8) {
+          HStack(spacing: 12) {
+            InfoPill("Download", value: networkDownloadText, accent: .blue)
+            InfoPill("Upload", value: networkUploadText, accent: .purple)
+            InfoPill("Total", value: networkTotalText, accent: BrandStyle.accent)
+          }
 
-        VStack(alignment: .leading, spacing: 4) {
-          SparklineView(
-            values: viewModel.networkDownloadHistory,
-            minValue: 0,
-            maxValue: max(viewModel.networkDownloadHistory.max() ?? 0, 1),
-            lineColor: .blue,
-            dense: true,
-            showFill: true
-          )
-          SparklineView(
-            values: viewModel.networkUploadHistory,
-            minValue: 0,
-            maxValue: max(viewModel.networkUploadHistory.max() ?? 0, 1),
-            lineColor: .purple,
-            dense: true,
-            showFill: true
-          )
+          VStack(alignment: .leading, spacing: 4) {
+            SparklineView(
+              values: viewModel.networkDownloadHistory,
+              minValue: 0,
+              maxValue: max(viewModel.networkDownloadHistory.max() ?? 0, 1),
+              lineColor: .blue,
+              dense: true,
+              showFill: true
+            )
+            SparklineView(
+              values: viewModel.networkUploadHistory,
+              minValue: 0,
+              maxValue: max(viewModel.networkUploadHistory.max() ?? 0, 1),
+              lineColor: .purple,
+              dense: true,
+              showFill: true
+            )
+          }
+        }
+      }
+
+      GroupBox("Detalhes") {
+        let columns = [
+          GridItem(.flexible(), spacing: 12),
+          GridItem(.flexible(), spacing: 12),
+          GridItem(.flexible(), spacing: 12)
+        ]
+        LazyVGrid(columns: columns, spacing: 12) {
+          InfoPill("Download medio", value: networkAverageText(viewModel.networkDownloadHistory), accent: .blue)
+          InfoPill("Upload medio", value: networkAverageText(viewModel.networkUploadHistory), accent: .purple)
+          InfoPill("Total medio", value: networkAverageText(networkTotalHistory), accent: BrandStyle.accent)
+          InfoPill("Download pico", value: networkPeakText(viewModel.networkDownloadHistory), accent: .blue)
+          InfoPill("Upload pico", value: networkPeakText(viewModel.networkUploadHistory), accent: .purple)
+          InfoPill("Total pico", value: networkPeakText(networkTotalHistory), accent: BrandStyle.accent)
         }
       }
     }
   }
 
   private var batterySection: some View {
-    GroupBox("Bateria") {
-      MetricGaugeView(
-        title: "Bateria",
-        value: viewModel.batteryPercent,
-        valueText: viewModel.batteryPercent.map { String(format: "%.0f%%", $0) } ?? "--",
-        range: 0 ... 100,
-        color: .orange,
-        history: viewModel.batteryHistory,
-        subtitle: batterySubtitleDetailed
-      )
+    VStack(alignment: .leading, spacing: 12) {
+      GroupBox("Bateria") {
+        MetricGaugeView(
+          title: "Bateria",
+          value: viewModel.batteryPercent,
+          valueText: viewModel.batteryPercent.map { String(format: "%.0f%%", $0) } ?? "--",
+          range: 0 ... 100,
+          color: .orange,
+          history: viewModel.batteryHistory,
+          subtitle: batterySubtitleDetailed
+        )
+      }
+      GroupBox("Detalhes") {
+        let columns = [
+          GridItem(.flexible(), spacing: 12),
+          GridItem(.flexible(), spacing: 12),
+          GridItem(.flexible(), spacing: 12)
+        ]
+        LazyVGrid(columns: columns, spacing: 12) {
+          InfoPill("Fonte", value: viewModel.batterySourceText, accent: .orange)
+          InfoPill("Status", value: viewModel.batteryStatusText, accent: .orange)
+          InfoPill("Saude", value: viewModel.batteryHealthText, accent: .orange)
+          InfoPill("Ciclos", value: batteryCycleText, accent: .orange)
+          InfoPill("Tempo", value: viewModel.batteryTimeRemainingText, accent: .orange)
+          InfoPill("Capacidade", value: batteryCapacityText, accent: .orange)
+          InfoPill("Capacidade projeto", value: batteryDesignCapacityText, accent: .orange)
+        }
+      }
     }
   }
 
@@ -302,6 +594,7 @@ public struct MetricsView: View {
         HStack(spacing: 12) {
           InfoPill("Temperatura", value: viewModel.thermalDetailText)
           InfoPill("Fans", value: viewModel.fansDetailText)
+          InfoPill("Estado termico", value: viewModel.thermalStateText)
         }
       }
 
@@ -427,6 +720,112 @@ public struct MetricsView: View {
   private var diskFreeText: String {
     guard let value = viewModel.diskFreeGB else { return "--" }
     return String(format: "%.1f GB", value)
+  }
+
+  private var diskTotalText: String {
+    guard let value = viewModel.diskTotalGB else { return "--" }
+    return String(format: "%.1f GB", value)
+  }
+
+  private var diskUsedPercentText: String {
+    guard let free = viewModel.diskFreePercent else { return "--" }
+    let used = max(0, 100 - free)
+    return String(format: "%.0f%%", used)
+  }
+
+  private var totalDiskRate: Double? {
+    guard let read = viewModel.diskReadBytesPerSec, let write = viewModel.diskWriteBytesPerSec else { return nil }
+    return read + write
+  }
+
+  private func diskRateText(_ bytesPerSec: Double?) -> String {
+    guard let bytesPerSec else { return "--" }
+    let kiloBytes = bytesPerSec / 1024.0
+    let megaBytes = kiloBytes / 1024.0
+    if megaBytes >= 1 {
+      return String(format: "%.1f MB/s", megaBytes)
+    }
+    if kiloBytes >= 1 {
+      return String(format: "%.0f KB/s", kiloBytes)
+    }
+    return String(format: "%.0f B/s", bytesPerSec)
+  }
+
+  private var batteryCycleText: String {
+    guard let value = viewModel.batteryCycleCount else { return "--" }
+    return "\(value)"
+  }
+
+  private var batteryCapacityText: String {
+    guard let current = viewModel.batteryCurrentCapacity, let max = viewModel.batteryMaxCapacity else { return "--" }
+    return String(format: "%.0f / %.0f mAh", current, max)
+  }
+
+  private var batteryDesignCapacityText: String {
+    guard let design = viewModel.batteryDesignCapacity else { return "--" }
+    return String(format: "%.0f mAh", design)
+  }
+
+  private var networkDownloadText: String {
+    networkRateText(viewModel.networkDownloadKBps)
+  }
+
+  private var networkUploadText: String {
+    networkRateText(viewModel.networkUploadKBps)
+  }
+
+  private var networkTotalText: String {
+    networkRateText(totalNetworkRate)
+  }
+
+  private var totalNetworkRate: Double? {
+    guard let download = viewModel.networkDownloadKBps, let upload = viewModel.networkUploadKBps else { return nil }
+    return download + upload
+  }
+
+  private var networkTotalHistory: [Double] {
+    let count = min(viewModel.networkDownloadHistory.count, viewModel.networkUploadHistory.count)
+    guard count > 0 else { return [] }
+    return (0 ..< count).map { index in
+      viewModel.networkDownloadHistory[index] + viewModel.networkUploadHistory[index]
+    }
+  }
+
+  private func networkAverageText(_ values: [Double]) -> String {
+    guard !values.isEmpty else { return "--" }
+    let sum = values.reduce(0, +)
+    return networkRateText(sum / Double(values.count))
+  }
+
+  private func networkPeakText(_ values: [Double]) -> String {
+    guard let maxValue = values.max() else { return "--" }
+    return networkRateText(maxValue)
+  }
+
+  private func networkRateText(_ kiloBytesPerSec: Double?) -> String {
+    guard let kiloBytesPerSec else { return "--" }
+    if kiloBytesPerSec >= 1024 {
+      return String(format: "%.1f MB/s", kiloBytesPerSec / 1024.0)
+    }
+    if kiloBytesPerSec >= 1 {
+      return String(format: "%.0f KB/s", kiloBytesPerSec)
+    }
+    return String(format: "%.0f B/s", kiloBytesPerSec * 1024.0)
+  }
+
+  private var cpuLoad1Text: String {
+    guard let value = viewModel.cpuLoadAverage1 else { return "--" }
+    return String(format: "%.2f", value)
+  }
+
+  private var cpuLoad5Text: String {
+    guard let value = viewModel.cpuLoadAverage5 else { return "--" }
+    return String(format: "%.2f", value)
+  }
+
+  private var cpuLoad15Text: String {
+    guard let value = viewModel.cpuLoadAverage15 else { return "--" }
+    return String(format: "%.2f", value)
   }
 }
 
@@ -603,6 +1002,54 @@ private struct SparklineView: View {
       path.addLine(to: CGPoint(x: size.width, y: yPosition))
       context.stroke(path, with: .color(color), style: stroke)
     }
+  }
+}
+
+private struct CoreUsageGrid: View {
+  let values: [Double]
+
+  private var columns: [GridItem] {
+    [GridItem(.flexible(), spacing: 8),
+     GridItem(.flexible(), spacing: 8),
+     GridItem(.flexible(), spacing: 8),
+     GridItem(.flexible(), spacing: 8)]
+  }
+
+  var body: some View {
+    LazyVGrid(columns: columns, spacing: 8) {
+      ForEach(values.indices, id: \.self) { index in
+        CoreUsageCard(index: index + 1, value: values[index])
+      }
+    }
+  }
+}
+
+private struct CoreUsageCard: View {
+  let index: Int
+  let value: Double
+
+  var body: some View {
+    VStack(alignment: .leading, spacing: 6) {
+      HStack {
+        Text("Core \(index)")
+          .font(.caption)
+          .foregroundColor(.secondary)
+        Spacer()
+        Text(String(format: "%.0f%%", value))
+          .font(.caption2)
+          .foregroundColor(.secondary)
+      }
+      ProgressView(value: min(max(value, 0), 100), total: 100)
+        .progressViewStyle(.linear)
+        .tint(.pink)
+    }
+    .padding(8)
+    .background(BrandStyle.surfaceAlt)
+    .overlay(
+      RoundedRectangle(cornerRadius: 10)
+        .stroke(BrandStyle.border.opacity(0.6), lineWidth: 1)
+    )
+    .cornerRadius(10)
   }
 }
 

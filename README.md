@@ -44,3 +44,14 @@ Monitor de sistema macOS nativo, leve e 100% offline. Inspirado em iStat Menus, 
 
 ## Privacidade
 Ver `PRIVACY.md`.
+
+
+## Modelo de trabalho
+
+- `PATHS.toml`: fonte de verdade para caminhos, documentos e checks.
+- `MAPA_MENTAL_MARKMAP.md`: mapa completo para Markmap.
+- `MAPA_EXECUTIVO_MARKMAP.md`: mapa resumido.
+- `DEMANDAS.md`: backlog executável por pacote/lote.
+- `TESTES.md`: estratégia de testes.
+- `DECISOES.md`: decisões arquiteturais.
+- `RUNBOOK.md`: operação e rollback.

@@ -73,6 +73,7 @@
 		A70000000000000000000041 /* Sources/Presentation/Views/MetricsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6000000000000000000003F /* Sources/Presentation/Views/MetricsView.swift */; };
 		A70000000000000000000042 /* Sources/Presentation/Views/AlertsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60000000000000000000040 /* Sources/Presentation/Views/AlertsView.swift */; };
 		A70000000000000000000043 /* Sources/Presentation/Views/PreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60000000000000000000041 /* Sources/Presentation/Views/PreferencesView.swift */; };
+		A70000000000000000000093 /* Sources/Presentation/Views/WidgetsPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60000000000000000000093 /* Sources/Presentation/Views/WidgetsPreviewView.swift */; };
 		A70000000000000000000044 /* Sources/Domain/Models/ProcessSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60000000000000000000042 /* Sources/Domain/Models/ProcessSnapshot.swift */; };
 		A70000000000000000000045 /* Sources/Domain/Models/TopProcessesSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60000000000000000000043 /* Sources/Domain/Models/TopProcessesSnapshot.swift */; };
 		A70000000000000000000046 /* Sources/SystemMetrics/TopProcessesCollector.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60000000000000000000044 /* Sources/SystemMetrics/TopProcessesCollector.swift */; };
@@ -228,6 +229,7 @@
 		A6000000000000000000003F /* Sources/Presentation/Views/MetricsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/Presentation/Views/MetricsView.swift; sourceTree = "<group>"; };
 		A60000000000000000000040 /* Sources/Presentation/Views/AlertsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/Presentation/Views/AlertsView.swift; sourceTree = "<group>"; };
 		A60000000000000000000041 /* Sources/Presentation/Views/PreferencesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/Presentation/Views/PreferencesView.swift; sourceTree = "<group>"; };
+		A60000000000000000000093 /* Sources/Presentation/Views/WidgetsPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/Presentation/Views/WidgetsPreviewView.swift; sourceTree = "<group>"; };
 		A60000000000000000000042 /* Sources/Domain/Models/ProcessSnapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/Domain/Models/ProcessSnapshot.swift; sourceTree = "<group>"; };
 		A60000000000000000000043 /* Sources/Domain/Models/TopProcessesSnapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/Domain/Models/TopProcessesSnapshot.swift; sourceTree = "<group>"; };
 		A60000000000000000000044 /* Sources/SystemMetrics/TopProcessesCollector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/SystemMetrics/TopProcessesCollector.swift; sourceTree = "<group>"; };
@@ -376,6 +378,7 @@
 				A6000000000000000000003F /* Sources/Presentation/Views/MetricsView.swift */,
 				A60000000000000000000040 /* Sources/Presentation/Views/AlertsView.swift */,
 				A60000000000000000000041 /* Sources/Presentation/Views/PreferencesView.swift */,
+				A60000000000000000000093 /* Sources/Presentation/Views/WidgetsPreviewView.swift */,
 				A6000000000000000000004D /* Sources/Presentation/Views/Components/BrandComponents.swift */,
 			);
 			sourceTree = "<group>";
@@ -621,6 +624,7 @@
 				A70000000000000000000041 /* Sources/Presentation/Views/MetricsView.swift in Sources */,
 				A70000000000000000000042 /* Sources/Presentation/Views/AlertsView.swift in Sources */,
 				A70000000000000000000043 /* Sources/Presentation/Views/PreferencesView.swift in Sources */,
+				A70000000000000000000093 /* Sources/Presentation/Views/WidgetsPreviewView.swift in Sources */,
 				A7000000000000000000004D /* Sources/Presentation/Views/Components/BrandComponents.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

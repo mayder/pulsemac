@@ -37,6 +37,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCent
       metricsViewModel: container.metricsViewModel,
       processesViewModel: container.processesViewModel,
       impactViewModel: container.impactViewModel,
+      logsViewModel: container.logsViewModel,
       navigation: settingsNavigation
     )
     settingsWindowController = SettingsWindowController(rootView: settingsView, navigation: settingsNavigation)
@@ -102,7 +103,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCent
     viewMenu.addItem(makeTabItem(title: "Processos", tab: .processes, key: "2"))
     viewMenu.addItem(makeTabItem(title: "Alertas", tab: .alerts, key: "3"))
     viewMenu.addItem(makeTabItem(title: "Impacto", tab: .impact, key: "4"))
-    viewMenu.addItem(makeTabItem(title: "Ajustes", tab: .preferences, key: "5"))
+    viewMenu.addItem(makeTabItem(title: "Logs", tab: .logs, key: "7"))
+    viewMenu.addItem(makeTabItem(title: "Widgets", tab: .widgets, key: "5"))
+    viewMenu.addItem(makeTabItem(title: "Ajustes", tab: .preferences, key: "6"))
 
     let windowMenuItem = NSMenuItem()
     mainMenu.addItem(windowMenuItem)
@@ -151,6 +154,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCent
       container.processesViewModel.refresh(force: true)
     case .impact:
       container.impactViewModel.refresh()
+    case .logs:
+      container.logsViewModel.refresh()
     default:
       break
     }
@@ -228,7 +233,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCent
 extension AppDelegate: NSUserInterfaceValidations {
   func validateUserInterfaceItem(_ item: NSValidatedUserInterfaceItem) -> Bool {
     if item.action == #selector(refreshCurrentTab) {
-      return settingsNavigation.selectedTab == .processes || settingsNavigation.selectedTab == .impact
+      return settingsNavigation.selectedTab == .processes
+        || settingsNavigation.selectedTab == .impact
+        || settingsNavigation.selectedTab == .logs
     }
     return true
   }

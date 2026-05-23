@@ -61,3 +61,31 @@ public struct ProcessResourceSnapshot: Codable, Equatable, Identifiable {
     self.parentPid = parentPid
   }
 }
+
+public struct ProcessFavorite: Codable, Equatable, Identifiable {
+  public let id: String
+  public let name: String
+  public let appName: String?
+  public let bundleId: String?
+  public let bundlePath: String?
+  public let executablePath: String?
+  public var alertEnabled: Bool
+
+  public init(
+    id: String,
+    name: String,
+    appName: String?,
+    bundleId: String?,
+    bundlePath: String?,
+    executablePath: String?,
+    alertEnabled: Bool
+  ) {
+    self.id = id
+    self.name = name
+    self.appName = appName
+    self.bundleId = bundleId
+    self.bundlePath = bundlePath
+    self.executablePath = executablePath
+    self.alertEnabled = alertEnabled
+  }
+}

@@ -66,6 +66,13 @@ public final class SQLiteAlertHistoryStore: AlertHistoryStore {
     }
   }
 
+  public func clearAll() {
+    queue.sync {
+      let sql = "DELETE FROM alert_history;"
+      _ = sqlite3_exec(database, sql, nil, nil, nil)
+    }
+  }
+
   private func openDatabase(at url: URL) {
     queue.sync {
       _ = FileManager.default.createFile(atPath: url.path, contents: nil)

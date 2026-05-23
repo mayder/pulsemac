@@ -16,6 +16,8 @@ public final class SettingsViewModel: ObservableObject {
   @Published public var showMenuBar: Bool
   @Published public var showDock: Bool
   @Published public var diagnosticsStatusText: String = ""
+  @Published public var quickReportStatusText: String = ""
+  @Published public var quickActionsStatusText: String = ""
   @Published public var notificationStatusText: String = ""
   @Published public var notificationEntitlementText: String = ""
   @Published public var advancedDiagnosticsRows: [AdvancedDiagnosticRow] = []
@@ -30,6 +32,9 @@ public final class SettingsViewModel: ObservableObject {
   private let onOpenSystemNotificationSettings: () -> Void
   private let onTestNotification: () -> Void
   private let onExportDiagnostics: () -> DiagnosticsExportOutcome
+  private let onExportQuickReport: () -> DiagnosticsExportOutcome
+  private let onClearAlertHistory: () -> Void
+  private let onOpenDiagnosticsFolder: () -> Void
   private let onFetchAdvancedDiagnostics: (@escaping ([AdvancedDiagnosticRow]) -> Void) -> Void
   private var lastNotificationsEnabled: Bool
 
@@ -43,6 +48,9 @@ public final class SettingsViewModel: ObservableObject {
     onOpenSystemNotificationSettings: @escaping () -> Void,
     onTestNotification: @escaping () -> Void,
     onExportDiagnostics: @escaping () -> DiagnosticsExportOutcome,
+    onExportQuickReport: @escaping () -> DiagnosticsExportOutcome,
+    onClearAlertHistory: @escaping () -> Void,
+    onOpenDiagnosticsFolder: @escaping () -> Void,
     onFetchAdvancedDiagnostics: @escaping (@escaping ([AdvancedDiagnosticRow]) -> Void) -> Void
   ) {
     let settings = store.load()
@@ -55,6 +63,9 @@ public final class SettingsViewModel: ObservableObject {
     self.onOpenSystemNotificationSettings = onOpenSystemNotificationSettings
     self.onTestNotification = onTestNotification
     self.onExportDiagnostics = onExportDiagnostics
+    self.onExportQuickReport = onExportQuickReport
+    self.onClearAlertHistory = onClearAlertHistory
+    self.onOpenDiagnosticsFolder = onOpenDiagnosticsFolder
     self.onFetchAdvancedDiagnostics = onFetchAdvancedDiagnostics
     samplingInterval = settings.samplingInterval
     retentionDays = settings.retentionDays
@@ -131,6 +142,48 @@ public final class SettingsViewModel: ObservableObject {
     case let .failure(message):
       diagnosticsStatusText = message
     }
+  }
+
+  public func exportQuickReport() {
+    let result = onExportQuickReport()
+    switch result {
+    case let .success(url):
+      quickReportStatusText = "Resumo exportado: \(url.lastPathComponent)"
+    case .canceled:
+      quickReportStatusText = "Exportacao cancelada"
+    case let .failure(message):
+      quickReportStatusText = message
+    }
+  }
+
+  public func pauseAlerts() {
+    guard notificationsEnabled else {
+      quickActionsStatusText = "Alertas ja estao pausados."
+      return
+    }
+    notificationsEnabled = false
+    save()
+    quickActionsStatusText = "Alertas pausados."
+  }
+
+  public func resumeAlerts() {
+    guard !notificationsEnabled else {
+      quickActionsStatusText = "Alertas ja estao ativos."
+      return
+    }
+    notificationsEnabled = true
+    save()
+    quickActionsStatusText = "Alertas ativados."
+  }
+
+  public func clearAlertHistory() {
+    onClearAlertHistory()
+    quickActionsStatusText = "Historico limpo."
+  }
+
+  public func openDiagnosticsFolder() {
+    onOpenDiagnosticsFolder()
+    quickActionsStatusText = "Pasta aberta."
   }
 
   public func refreshAdvancedDiagnostics() {

@@ -26,7 +26,18 @@ public struct AlertsView: View {
   public var body: some View {
     HStack(spacing: 12) {
       VStack(alignment: .leading, spacing: 8) {
-        SectionHeader("Regras", subtitle: "Alertas configurados")
+        HStack(spacing: 12) {
+          SectionHeader("Regras", subtitle: "Alertas configurados")
+          Spacer()
+          Button {
+            viewModel.reload()
+          } label: {
+            Label("Atualizar", systemImage: "arrow.clockwise")
+          }
+          .buttonStyle(.bordered)
+        }
+
+        summaryCard
 
         List(selection: $selectedRuleId) {
           if viewModel.rules.isEmpty {
@@ -113,11 +124,9 @@ public struct AlertsView: View {
                   .frame(maxWidth: .infinity, alignment: .leading)
                   .fieldContainer()
                   .onChange(of: draft.metric) { metric in
-                    DispatchQueue.main.async {
-                      draft.comparison = metric.defaultComparison
-                      if !metric.range.contains(draft.threshold) {
-                        draft.threshold = metric.defaultThreshold
-                      }
+                    draft.comparison = metric.defaultComparison
+                    if !metric.range.contains(draft.threshold) {
+                      draft.threshold = metric.defaultThreshold
                     }
                   }
                 }
@@ -269,18 +278,50 @@ public struct AlertsView: View {
     .tint(BrandStyle.accent)
     .searchable(text: $historyQuery, placement: .toolbar, prompt: "Buscar no historico")
     .onAppear {
-      DispatchQueue.main.async {
-        loadInitialSelection()
-      }
+      loadInitialSelection()
     }
     .onChange(of: selectedRuleId) { _ in
-      DispatchQueue.main.async {
-        resetDraftToSelection()
-      }
+      resetDraftToSelection()
     }
     .onChange(of: viewModel.rules) { _ in
-      DispatchQueue.main.async {
-        ensureSelectionIsValid()
+      ensureSelectionIsValid()
+    }
+  }
+
+  private var summaryCard: some View {
+    GlassCard {
+      let total = viewModel.rules.count
+      let active = viewModel.rules.filter(\.isEnabled).count
+      let inactive = total - active
+      let recentEvents = viewModel.history.filter { event in
+        event.timestamp >= Date().addingTimeInterval(-Self.day)
+      }.count
+
+      let columns = [
+        GridItem(.flexible(), spacing: 12),
+        GridItem(.flexible(), spacing: 12),
+        GridItem(.flexible(), spacing: 12),
+        GridItem(.flexible(), spacing: 12)
+      ]
+      LazyVGrid(columns: columns, spacing: 12) {
+        InfoPill("Regras", value: "\(total)")
+        InfoPill("Ativas", value: "\(active)")
+        InfoPill("Desativadas", value: "\(inactive)")
+        InfoPill("Eventos 24h", value: "\(recentEvents)")
+      }
+
+      if let lastEvent = viewModel.history.sorted(by: { $0.timestamp > $1.timestamp }).first {
+        Divider()
+        VStack(alignment: .leading, spacing: 4) {
+          Text("Ultimo evento")
+            .font(.caption)
+            .foregroundColor(.secondary)
+          Text(lastEvent.message)
+            .lineLimit(2)
+          Text(Self.eventFormatter.string(from: lastEvent.timestamp))
+            .font(.caption)
+            .foregroundColor(.secondary)
+        }
       }
     }
   }
@@ -380,6 +421,14 @@ public struct AlertsView: View {
       severity: rule.severity
     )
   }
+
+  private static let day: TimeInterval = 60 * 60 * 24
+  private static let eventFormatter: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.dateStyle = .short
+    formatter.timeStyle = .short
+    return formatter
+  }()
 }
 
 private extension AlertMetric {

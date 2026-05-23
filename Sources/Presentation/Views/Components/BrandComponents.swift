@@ -36,11 +36,17 @@ struct CardSection<Content: View>: View {
 }
 
 struct GlassCard<Content: View>: View {
-  let content: () -> Content
+  let content: Content
+  let padding: CGFloat
+
+  init(padding: CGFloat = 12, @ViewBuilder content: () -> Content) {
+    self.content = content()
+    self.padding = padding
+  }
 
   var body: some View {
-    content()
-      .padding(12)
+    content
+      .padding(padding)
       .background(
         RoundedRectangle(cornerRadius: 14, style: .continuous)
           .fill(.ultraThinMaterial)
